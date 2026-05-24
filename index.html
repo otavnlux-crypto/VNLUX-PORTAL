@@ -229,7 +229,6 @@ let lastPrice = null;
 async function api(action, body={}) {
   const res = await fetch(API_URL, {
     method:"POST",
-    headers:{"Content-Type":"application/json"},
     body: JSON.stringify({action, token, ...body})
   });
   if (!res.ok) throw new Error("HTTP " + res.status);
