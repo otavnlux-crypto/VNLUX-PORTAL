@@ -1,934 +1,1031 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>VNLUX Portal v3</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>VNLUX CTV Portal</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#0a1628;--navy2:#0f2040;
-  --gold:#c9a84c;--gold2:#e8c96a;
-  --teal:#1a8f7a;--teal2:#22b89a;
-  --white:#f8f5ef;--muted:#a09880;
-  --border:rgba(201,168,76,0.2);
-  --card:rgba(255,255,255,0.04);--card2:rgba(255,255,255,0.07);
-  --green:#2eb88a;--warn:#e8a84c;
-}
-body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh}
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--navy:#1D3461;--navy2:#1a2a52;--gold:#C8963E;--gold2:#e8b04a;--teal:#1D9E75;--red:#E24B4A;--bg:#F2F4F8;--card:#fff;--text:#1a1a2e;--muted:#7a8099;--border:#e4e7ef;--font:'Be Vietnam Pro',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;display:flex;justify-content:center}
+.phone{width:100%;max-width:430px;min-height:100vh;background:var(--bg);position:relative}
+.screen{display:none;flex-direction:column;min-height:100vh;animation:fadeIn .25s ease}
+.screen.active{display:flex}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.login-bg{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 55%,#0d1b3e 100%);flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 28px 36px;position:relative;overflow:hidden}
+.login-bg::after{content:'✈';position:absolute;font-size:200px;right:-40px;bottom:-20px;opacity:.04;color:#fff}
+.logo-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px 16px;margin-bottom:48px}
+.logo-text{color:#fff;font-size:18px;font-weight:700}
+.logo-sub{color:rgba(255,255,255,.5);font-size:11px;margin-top:2px}
+.login-title{color:#fff;font-size:28px;font-weight:700;line-height:1.3;margin-bottom:8px}
+.login-sub{color:rgba(255,255,255,.5);font-size:14px;margin-bottom:36px}
+.inp-group{margin-bottom:16px}
+.inp-label{color:rgba(255,255,255,.6);font-size:12px;font-weight:500;margin-bottom:8px;display:block;letter-spacing:.04em;text-transform:uppercase}
+.inp{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:14px 16px;color:#fff;font-size:15px;font-family:var(--font);outline:none;transition:.2s}
+.inp::placeholder{color:rgba(255,255,255,.3)}
+.inp:focus{border-color:var(--gold);background:rgba(255,255,255,.12)}
+.btn-login{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:12px;padding:16px;color:#fff;font-size:16px;font-weight:700;font-family:var(--font);cursor:pointer;margin-top:8px;transition:.2s}
+.btn-login:active{opacity:.9}
+.login-hint{text-align:center;color:rgba(255,255,255,.3);font-size:12px;margin-top:16px}
+.header{background:var(--navy);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.header-back{background:rgba(255,255,255,.1);border:none;border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:18px}
+.header-title{color:#fff;font-size:16px;font-weight:600}
+.header-logo{color:#fff;font-size:14px;font-weight:700}
+.header-sub{color:rgba(255,255,255,.5);font-size:11px}
+.logout-btn{background:rgba(255,255,255,.1);border:none;border-radius:8px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:16px}
+.dash-body{flex:1;overflow-y:auto;padding:0 0 80px}
+.dash-hero{background:linear-gradient(135deg,var(--navy),var(--navy2));padding:20px;margin-bottom:4px}
+.dash-welcome{color:rgba(255,255,255,.7);font-size:13px}
+.dash-name{color:#fff;font-size:20px;font-weight:700;margin:4px 0 16px}
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 14px}
+.stat-val{color:#fff;font-size:20px;font-weight:700}
+.stat-val.gold{color:var(--gold2)}
+.stat-lbl{color:rgba(255,255,255,.5);font-size:11px;margin-top:2px}
+.section{padding:16px 16px 0}
+.section-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:16px;margin-bottom:4px}
+.quick-btn{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;transition:.15s}
+.quick-btn:active{transform:scale(.97)}
+.quick-icon{font-size:26px;margin-bottom:8px}
+.quick-label{font-size:12px;font-weight:600;color:var(--text)}
+.booking-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px}
+.bk-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.bk-code{font-size:13px;font-weight:700;color:var(--navy)}
+.bk-status{font-size:10px;font-weight:600;padding:3px 10px;border-radius:99px}
+.s-confirmed{background:#ddf4ed;color:#0b6e4f}
+.s-paid{background:#d4edda;color:#0f6e56}
+.s-draft{background:#fff3cd;color:#856404}
+.s-partial{background:#cce5ff;color:#004085}
+.bk-hotel{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px}
+.bk-dates{font-size:12px;color:var(--muted)}
+.bk-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.bk-amount{font-size:14px;font-weight:700;color:var(--navy)}
+.form-body{flex:1;overflow-y:auto;padding:16px 16px 80px}
+.field{margin-bottom:16px}
+.field-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;display:block}
+.field-inp{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:13px 16px;font-size:15px;font-family:var(--font);color:var(--text);outline:none;appearance:none}
+.field-inp:focus{border-color:var(--navy)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn-primary{width:100%;background:var(--navy);border:none;border-radius:12px;padding:15px;color:#fff;font-size:15px;font-weight:700;font-family:var(--font);cursor:pointer;margin-top:4px}
+.btn-primary:active{opacity:.9}
+.btn-teal{background:var(--teal)}
+.price-result{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:18px;margin-top:20px}
+.price-hotel{font-size:15px;font-weight:700;margin-bottom:4px}
+.price-room{font-size:13px;color:var(--muted);margin-bottom:16px}
+.price-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.price-total-row{display:flex;justify-content:space-between;padding:14px 16px;background:var(--navy);border-radius:12px;margin-top:12px;align-items:center}
+.price-total-lbl{color:rgba(255,255,255,.7);font-size:13px}
+.price-total-val{color:#fff;font-size:22px;font-weight:700}
+.price-warning{background:#fff8e7;border-left:3px solid var(--gold);padding:10px 12px;margin-top:12px;font-size:12px;color:#854f0b;border-radius:0 8px 8px 0}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:var(--card);border-top:1px solid var(--border);display:flex;padding:8px 0 20px}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:6px 0}
+.nav-icon{font-size:20px;opacity:.4}
+.nav-label{font-size:10px;font-weight:500;color:var(--muted)}
+.nav-item.active .nav-icon{opacity:1}
+.nav-item.active .nav-label{color:var(--navy);font-weight:700}
+.loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
+.empty-state{text-align:center;padding:48px 24px}
+.empty-icon{font-size:48px;margin-bottom:16px}
+.empty-text{font-size:15px;font-weight:500;margin-bottom:8px}
+.empty-sub{font-size:13px;color:var(--muted)}
+.search-wrap{position:relative}
+.search-input{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:13px 16px 13px 42px;font-size:15px;font-family:var(--font);color:var(--text);outline:none}
+.search-input:focus{border-color:var(--navy)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none}
+.search-drop{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--card);border:1.5px solid var(--navy);border-radius:12px;z-index:100;max-height:220px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.12);display:none}
+.search-item{padding:12px 16px;cursor:pointer;font-size:14px;border-bottom:0.5px solid var(--border)}
+.search-item:last-child{border-bottom:none}
+.search-item:hover,.search-item.active{background:#eef4fb;color:var(--navy);font-weight:500}
+.search-item-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.room-card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:12px 10px;cursor:pointer;transition:.15s;text-align:center}
+.room-card:active{transform:scale(.97)}
+.room-card.selected{border-color:var(--navy);background:#eef4fb}
+.room-card-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.3}
+.room-card-price{font-size:14px;font-weight:700;color:var(--navy)}
+.room-card-sub{font-size:10px;color:var(--muted);margin-top:2px}
 
-/* ── LAYOUT ── */
-.portal{max-width:860px;margin:0 auto;padding:24px 16px 80px}
-
-/* ── HEADER ── */
-.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;padding-bottom:14px;border-bottom:1px solid var(--border)}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-mark{width:34px;height:34px;border:1.5px solid var(--gold);border-radius:5px;display:flex;align-items:center;justify-content:center}
-.logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;letter-spacing:.04em}
-.logo-sub{font-size:11px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-top:1px}
-.ctv-badge{font-size:12px;color:var(--muted);background:var(--card2);padding:5px 14px;border-radius:20px;border:1px solid var(--border)}
-
-/* ── STEPS ── */
-.steps{display:flex;align-items:center;margin-bottom:22px}
-.step{display:flex;align-items:center;gap:7px;opacity:.35;transition:opacity .2s}
-.step.active{opacity:1}
-.step.done{opacity:.6}
-.step-num{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--gold);flex-shrink:0;transition:all .2s}
-.step.active .step-num{background:var(--gold);color:var(--navy)}
-.step.done .step-num{background:var(--teal);border-color:var(--teal);color:#fff}
-.step-label{font-size:12px;color:var(--muted)}
-.step.active .step-label{color:var(--white);font-weight:500}
-.step-line{flex:1;height:1px;background:var(--border);margin:0 8px}
-
-/* ── CARD ── */
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
-.card-title{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;margin-bottom:4px}
-.card-sub{font-size:13px;color:var(--muted);margin-bottom:18px}
-
-/* ── LOADING STATE ── */
-.loading-bar{display:flex;align-items:center;gap:10px;padding:12px 0;color:var(--muted);font-size:13px}
-.spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
-@keyframes spin{to{transform:rotate(360deg)}}
-.error-bar{background:rgba(224,92,92,.1);border:1px solid rgba(224,92,92,.25);border-radius:8px;padding:10px 14px;font-size:13px;color:#f09595;margin-bottom:12px;display:none}
-
-/* ── SEARCH ── */
-.search-wrap{position:relative;margin-bottom:12px}
-.si{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:13px 16px 13px 42px;font-size:15px;color:var(--white);font-family:'DM Sans',sans-serif;outline:none;transition:border .2s}
-.si::placeholder{color:var(--muted)}
-.si:focus{border-color:var(--gold)}
-.si-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.4}
-.dropdown{position:absolute;top:calc(100%+4px);left:0;right:0;background:#16243e;border:1px solid var(--border);border-radius:8px;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,.5);overflow:hidden;display:none;max-height:280px;overflow-y:auto}
-.dd-item{padding:11px 16px;cursor:pointer;transition:background .12s;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.04)}
-.dd-item:last-child{border-bottom:none}
-.dd-item:hover{background:var(--card2)}
-.dd-thumb{width:36px;height:36px;border-radius:6px;object-fit:cover;flex-shrink:0;background:var(--card2)}
-.dd-info{flex:1;min-width:0}
-.dd-name{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dd-area{font-size:11px;color:var(--muted);margin-top:1px}
-.dd-tag{font-size:10px;color:var(--gold);background:rgba(201,168,76,.12);padding:1px 7px;border-radius:8px;flex-shrink:0}
-
-/* ── HOTEL BANNER ── */
-.hotel-banner{border-radius:10px;margin-bottom:14px;display:none;overflow:hidden;border:1px solid rgba(26,143,122,.22)}
-.hotel-img-wrap{position:relative;height:180px;overflow:hidden;background:var(--card2)}
-.hotel-img{width:100%;height:100%;object-fit:cover;display:block}
-.hotel-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:600;color:rgba(255,255,255,.15)}
-.hotel-img-overlay{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;background:linear-gradient(transparent,rgba(10,22,40,.9))}
-.hotel-img-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--white)}
-.hotel-img-loc{font-size:12px;color:rgba(248,245,239,.7);margin-top:2px}
-.hotel-meta{padding:10px 16px;background:rgba(26,143,122,.07);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.promo-pill{font-size:11px;background:rgba(34,184,154,.15);color:var(--teal2);padding:3px 10px;border-radius:8px}
-.drive-link{font-size:11px;color:var(--gold);text-decoration:none;padding:3px 10px;border:1px solid rgba(201,168,76,.25);border-radius:8px;transition:all .15s;display:inline-flex;align-items:center;gap:4px}
-.drive-link:hover{background:rgba(201,168,76,.1)}
-
-/* ── ROOMS ── */
-.room-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-@media(max-width:480px){.room-grid{grid-template-columns:1fr}}
-.room-tag{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;cursor:pointer;transition:all .15s;display:flex;justify-content:space-between;align-items:center;gap:6px}
-.room-tag:hover{border-color:rgba(201,168,76,.35)}
-.room-tag.sel{border-color:var(--gold);background:rgba(201,168,76,.07)}
-.room-tag.sel .rt-n{color:var(--gold)}
-.rt-n{font-size:13px;font-weight:500;flex:1}
-.rt-p{font-size:12px;color:var(--muted);white-space:nowrap}
-
-/* ── DATES ── */
-.date-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
-@media(max-width:480px){.date-row{grid-template-columns:1fr 1fr}}
-.fl{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
-.fi{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--white);font-family:'DM Sans',sans-serif;outline:none;transition:border .2s;-webkit-appearance:none}
-.fi:focus{border-color:var(--gold)}
-select.fi option{background:#16243e}
-.nights-info{font-size:13px;color:var(--muted);min-height:18px}
-
-/* ── BUTTONS ── */
-.btn{padding:11px 24px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .18s;border:none}
-.btn-gold{background:var(--gold);color:var(--navy);font-weight:600}
-.btn-gold:hover{background:var(--gold2)}
-.btn-gold:disabled{opacity:.3;cursor:not-allowed}
-.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
-.btn-ghost:hover{border-color:var(--gold);color:var(--white)}
-.btn-row{display:flex;gap:9px;justify-content:flex-end;margin-top:16px}
-.btn-book{width:100%;padding:14px;background:var(--teal);color:#fff;font-size:15px;font-weight:600;border-radius:10px;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;transition:all .2s;margin-top:4px}
-.btn-book:hover{background:var(--teal2)}
-
-/* ── PRICE ── */
-.nights-bar{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.n-pill{background:rgba(201,168,76,.13);color:var(--gold);padding:2px 11px;border-radius:10px;font-size:12px;font-weight:500}
-.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:13px}
-.pc{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:15px;cursor:pointer;transition:border .2s;position:relative}
-.pc:hover{border-color:rgba(201,168,76,.35)}
-.pc.sel{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.12)}
-.pc.promo-card{border-color:rgba(26,143,122,.28);background:rgba(26,143,122,.07)}
-.pc.promo-card.sel{border-color:var(--teal);box-shadow:0 0 0 2px rgba(26,143,122,.12)}
-.pc-type{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
-.pc.promo-card .pc-type{color:var(--teal2)}
-.pc-amt{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:600;line-height:1}
-.pc.promo-card .pc-amt{color:var(--teal2)}
-.pc-note{font-size:11px;color:var(--muted);margin-top:4px}
-.pc-badge{position:absolute;top:9px;right:9px;font-size:10px;background:rgba(34,184,154,.18);color:var(--teal2);padding:2px 8px;border-radius:8px}
-.extras{background:rgba(255,255,255,.025);border-radius:8px;padding:13px;margin-bottom:13px;border:1px solid rgba(255,255,255,.05)}
-.ex-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0}
-.ex-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:7px;margin-bottom:2px}
-.ex-lbl{color:var(--muted)}
-.ex-val{font-weight:500}
-.total-bar{display:flex;justify-content:space-between;align-items:center;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px 18px}
-.t-lbl{font-size:13px;color:var(--muted)}
-.t-note{font-size:11px;color:var(--muted);margin-top:2px}
-.t-amt{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--gold)}
-
-/* ── FORM ── */
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px}
-@media(max-width:480px){.form-grid{grid-template-columns:1fr}}
-.form-full{grid-column:1/-1}
-textarea.fi{resize:vertical;min-height:68px}
-
-/* ── CONFIRM ── */
-.cf-center{text-align:center;padding:6px 0}
-.cf-icon{width:60px;height:60px;border-radius:50%;background:rgba(46,184,138,.12);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 13px}
-.cf-code{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--gold);letter-spacing:.1em;margin-bottom:6px}
-.cf-note{font-size:13px;color:var(--muted);line-height:1.65;max-width:380px;margin:0 auto 18px}
-.info-box{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:4px 15px;margin-bottom:18px;text-align:left}
-.ir{display:flex;justify-content:space-between;align-items:center;padding:9px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,.05)}
-.ir:last-child{border-bottom:none}
-.ir-lbl{color:var(--muted)}
-.ir-val{font-weight:500;text-align:right}
-
-/* ── CHATBOX ── */
-#chatBtn{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(201,168,76,.35);z-index:200;transition:transform .2s}
-#chatBtn:hover{transform:scale(1.08)}
-#chatBox{position:fixed;bottom:86px;right:24px;width:340px;height:480px;background:#0f2040;border:1px solid var(--border);border-radius:16px;display:none;flex-direction:column;z-index:200;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.5)}
-#chatBox.open{display:flex}
-.chat-hdr{padding:13px 15px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.03)}
-.chat-hdr-l{display:flex;align-items:center;gap:8px}
-.chat-dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
-.chat-title{font-size:14px;font-weight:500}
-.chat-sub{font-size:11px;color:var(--muted)}
-.chat-x{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px}
-.chat-x:hover{color:var(--white)}
-.chat-msgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:9px}
-.chat-msgs::-webkit-scrollbar{width:3px}
-.chat-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.msg{max-width:88%;font-size:13px;line-height:1.55;padding:9px 12px;border-radius:12px;word-break:break-word;white-space:pre-wrap}
-.msg.bot{background:rgba(255,255,255,.07);color:var(--white);align-self:flex-start;border-bottom-left-radius:3px}
-.msg.user{background:var(--gold);color:var(--navy);align-self:flex-end;font-weight:500;border-bottom-right-radius:3px}
-.typing-dots span{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--muted);margin:0 2px;animation:td 1.2s infinite}
-.typing-dots span:nth-child(2){animation-delay:.2s}
-.typing-dots span:nth-child(3){animation-delay:.4s}
-@keyframes td{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
-.qbtns{display:flex;flex-wrap:wrap;gap:5px;padding:0 13px 9px}
-.qb{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.22);color:var(--gold);font-size:11px;padding:5px 10px;border-radius:20px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap}
-.qb:hover{background:rgba(201,168,76,.2)}
-.chat-inp-row{display:flex;gap:7px;padding:9px 11px;border-top:1px solid var(--border);background:rgba(255,255,255,.02)}
-#chatInput{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:13px;color:var(--white);font-family:'DM Sans',sans-serif;outline:none;transition:border .2s}
-#chatInput:focus{border-color:var(--gold)}
-#chatInput::placeholder{color:var(--muted)}
-#chatSend{background:var(--gold);border:none;border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-#chatSend:hover{background:var(--gold2)}
-
-.hidden{display:none!important}
+/* ── QUOTE SCREEN ─────────────────────────────────────── */
+.quote-summary{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:14px}
+.qs-hotel{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.qs-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:.5px solid var(--border)}
+.qs-row:last-child{border-bottom:none}
+.qs-lbl{color:var(--muted)}
+.qs-val{font-weight:500}
+.markup-box{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:16px;margin-bottom:14px}
+.markup-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.markup-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px}
+.markup-lbl{color:var(--text)}
+.markup-price{font-weight:700;color:var(--navy)}
+.markup-inp-wrap{display:flex;align-items:center;gap:6px}
+.markup-inp{width:140px;text-align:right;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:14px;font-family:var(--font);color:var(--text);outline:none}
+.markup-inp:focus{border-color:var(--navy)}
+.customer-price{background:var(--navy);border-radius:12px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.cp-lbl{color:rgba(255,255,255,.7);font-size:13px}
+.cp-amt{color:#fff;font-size:22px;font-weight:700}
+.btn-quote{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:12px;padding:15px;color:#fff;font-size:15px;font-weight:700;font-family:var(--font);cursor:pointer;margin-top:4px}
+.btn-quote:active{opacity:.9}
+.no-selection{text-align:center;padding:40px 20px}
+.no-sel-icon{font-size:40px;margin-bottom:12px}
+.no-sel-text{font-size:14px;color:var(--muted);margin-bottom:16px}
+/* nav 5 items */
+.bottom-nav .nav-label{font-size:9px}
+.bottom-nav .nav-icon{font-size:18px}
 </style>
 </head>
 <body>
-<div class="portal">
-  <div class="header">
-    <div class="logo">
-      <div class="logo-mark">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <path d="M9 2L15.5 6V12L9 16L2.5 12V6L9 2Z" stroke="#c9a84c" stroke-width="1.3" fill="none"/>
-          <circle cx="9" cy="9" r="2.5" fill="#c9a84c"/>
-        </svg>
-      </div>
-      <div>
-        <div class="logo-text">VNLUX TRAVEL</div>
-        <div class="logo-sub">CTV Portal · v3.0</div>
-      </div>
-    </div>
-    <div class="ctv-badge" id="ctvBadge">Đăng nhập CTV</div>
-  </div>
+<div class="phone">
 
-  <div class="steps">
-    <div class="step active" id="s1"><div class="step-num" id="sn1">1</div><span class="step-label">Chọn khách sạn</span></div>
-    <div class="step-line"></div>
-    <div class="step" id="s2"><div class="step-num" id="sn2">2</div><span class="step-label">Xem giá</span></div>
-    <div class="step-line"></div>
-    <div class="step" id="s3"><div class="step-num" id="sn3">3</div><span class="step-label">Đặt phòng</span></div>
-    <div class="step-line"></div>
-    <div class="step" id="s4"><div class="step-num" id="sn4">4</div><span class="step-label">Xác nhận</span></div>
-  </div>
-
-  <!-- STEP 1 -->
-  <div id="step1">
-    <div class="card">
-      <div class="card-title">Tìm khách sạn</div>
-      <div class="card-sub">Gõ tên, viết tắt hoặc khu vực — hệ thống tự gợi ý từ Google Sheet</div>
-
-      <!-- Loading / error state -->
-      <div class="loading-bar" id="loadingBar">
-        <div class="spin"></div>
-        <span>Đang tải dữ liệu khách sạn…</span>
-      </div>
-      <div class="error-bar" id="errorBar">
-        Không tải được dữ liệu từ Google Sheet. Kiểm tra URL và quyền truy cập.
-        <button onclick="loadData()" style="margin-left:10px;background:none;border:1px solid #f09595;color:#f09595;padding:2px 8px;border-radius:4px;cursor:pointer;font-size:12px">Thử lại</button>
-      </div>
-
-      <div class="search-wrap" id="searchArea" style="display:none">
-        <svg class="si-ico" width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="#a09880" stroke-width="1.5"/><path d="M14 14l3 3" stroke="#a09880" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <input class="si" id="hotelSearch" placeholder="KOI, Radisson, Memories, Renaissance, Vinpearl…" oninput="searchHotel(this.value)" autocomplete="off"/>
-        <div class="dropdown" id="dropdown"></div>
-      </div>
-
-      <div class="hotel-banner" id="hotelBanner">
-        <div class="hotel-img-wrap">
-          <img class="hotel-img hidden" id="hotelImg" alt="Resort"/>
-          <div class="hotel-img-placeholder" id="hotelImgPlaceholder"></div>
-          <div class="hotel-img-overlay">
-            <div class="hotel-img-name" id="hName"></div>
-            <div class="hotel-img-loc" id="hLoc"></div>
-          </div>
-        </div>
-        <div class="hotel-meta" id="hotelMeta"></div>
-      </div>
-    </div>
-
-    <div class="card hidden" id="roomCard">
-      <div class="card-title">Chọn hạng phòng</div>
-      <div class="card-sub">Giá net / phòng / đêm · bao gồm bữa sáng</div>
-      <div class="room-grid" id="roomGrid"></div>
-    </div>
-
-    <div class="card hidden" id="dateCard">
-      <div class="card-title">Ngày lưu trú</div>
-      <div class="card-sub">Hệ thống tự tính giai đoạn giá và phụ thu lễ/tết</div>
-      <div class="date-row">
-        <div><div class="fl">Check-in</div><input type="date" class="fi" id="checkin" onchange="calcNights()"/></div>
-        <div><div class="fl">Check-out</div><input type="date" class="fi" id="checkout" onchange="calcNights()"/></div>
-        <div><div class="fl">Số phòng</div>
-          <select class="fi" id="numRooms" onchange="updateTotal()">
-            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-          </select>
-        </div>
-      </div>
-      <div class="nights-info" id="nightsInfo"></div>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn btn-gold" id="btnPrice" onclick="goToPrice()" disabled>Xem giá →</button>
-    </div>
-  </div>
-
-  <!-- STEP 2 -->
-  <div id="step2" class="hidden">
-    <div class="card">
-      <div class="card-title" id="p2Title"></div>
-      <div class="card-sub" id="p2Sub"></div>
-      <div class="nights-bar">
-        <span class="n-pill" id="nPill"></span>
-        <span id="stayInfo" style="font-size:13px;color:var(--muted)"></span>
-      </div>
-      <div class="price-grid" id="priceGrid"></div>
-      <div class="extras" id="extrasBox"></div>
-      <div class="total-bar">
-        <div><div class="t-lbl">Tổng ước tính</div><div class="t-note" id="totalNote"></div></div>
-        <div class="t-amt" id="totalAmt"></div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-ghost" onclick="goStep(1)">← Thay đổi</button>
-        <button class="btn btn-gold" onclick="goStep(3)">Đặt phòng →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- STEP 3 -->
-  <div id="step3" class="hidden">
-    <div class="card">
-      <div class="card-title">Thông tin đặt phòng</div>
-      <div class="card-sub">Thông tin khách hàng cuối — dùng để tạo voucher xác nhận</div>
-      <div class="form-grid">
-        <div><div class="fl">Họ và tên khách</div><input class="fi" id="guestName" placeholder="Nguyễn Thị A"/></div>
-        <div><div class="fl">Số điện thoại</div><input class="fi" id="guestPhone" placeholder="09xxxxxxxx"/></div>
-        <div><div class="fl">Người lớn</div>
-          <select class="fi" id="adults"><option>1</option><option selected>2</option><option>3</option><option>4</option></select>
-        </div>
-        <div><div class="fl">Trẻ em dưới 12 tuổi</div>
-          <select class="fi" id="children"><option selected>0</option><option>1</option><option>2</option><option>3</option></select>
-        </div>
-        <div class="form-full"><div class="fl">Yêu cầu đặc biệt</div>
-          <textarea class="fi" id="special" placeholder="Phòng tầng cao, giường đôi, honeymoon, view biển…"></textarea>
-        </div>
-        <div class="form-full"><div class="fl">Mã CTV của bạn</div>
-          <input class="fi" id="ctvCode" placeholder="V101, V110, V123…"/>
-        </div>
-      </div>
-      <button class="btn-book" onclick="submitBooking()">Gửi yêu cầu đặt phòng</button>
-      <div class="btn-row" style="margin-top:10px">
-        <button class="btn btn-ghost" onclick="goStep(2)">← Xem lại giá</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- STEP 4 -->
-  <div id="step4" class="hidden">
-    <div class="card cf-center">
-      <div class="cf-icon">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#2eb88a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Yêu cầu đã ghi nhận</div>
-      <div class="cf-code" id="bkCode"></div>
-      <div class="cf-note">Sale VNLUX sẽ xác nhận và gửi voucher trong <strong style="color:var(--white)">2 giờ làm việc</strong>.</div>
-      <div class="info-box">
-        <div class="ir"><span class="ir-lbl">Khách sạn</span><span class="ir-val" id="cfHotel"></span></div>
-        <div class="ir"><span class="ir-lbl">Hạng phòng</span><span class="ir-val" id="cfRoom"></span></div>
-        <div class="ir"><span class="ir-lbl">Khách</span><span class="ir-val" id="cfGuest"></span></div>
-        <div class="ir"><span class="ir-lbl">Check-in</span><span class="ir-val" id="cfCI"></span></div>
-        <div class="ir"><span class="ir-lbl">Check-out</span><span class="ir-val" id="cfCO"></span></div>
-        <div class="ir"><span class="ir-lbl">Số phòng</span><span class="ir-val" id="cfRooms"></span></div>
-        <div class="ir"><span class="ir-lbl">Tổng ước tính</span><span class="ir-val" style="color:var(--gold)" id="cfTotal"></span></div>
-        <div class="ir"><span class="ir-lbl">Trạng thái</span><span class="ir-val" style="color:var(--teal2)">Chờ sale xác nhận</span></div>
-      </div>
-      <button class="btn btn-gold" onclick="resetPortal()" style="width:100%;padding:13px;font-size:15px">Tạo booking mới</button>
-    </div>
-  </div>
+<div class="screen active" id="s-login">
+<div class="login-bg">
+  <div class="logo-badge"><span style="font-size:20px">✈️</span><div><div class="logo-text">VNLUX</div><div class="logo-sub">Travel Operating System</div></div></div>
+  <div class="login-title">Xin chào,<br>CTV đối tác! 👋</div>
+  <div class="login-sub">Đăng nhập để tra giá và tạo booking</div>
+  <div class="inp-group"><label class="inp-label">Mã CTV</label><input class="inp" id="login-id" placeholder="VD: V111, V302, ADMIN01"></div>
+  <div class="inp-group"><label class="inp-label">Mật khẩu</label><input class="inp" id="login-pw" type="password" placeholder="Mật khẩu"></div>
+  <button class="btn-login" id="btn-login" onclick="doLogin()">Đăng nhập →</button>
+  <div class="login-hint">Mật khẩu mặc định: vnlux2026 · Liên hệ VNLUX để đổi</div>
+</div>
 </div>
 
-<!-- CHATBOX -->
-<button id="chatBtn" onclick="toggleChat()" title="Hỏi trợ lý VNLUX">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#0a1628" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-</button>
-<div id="chatBox">
-  <div class="chat-hdr">
-    <div class="chat-hdr-l">
-      <div class="chat-dot"></div>
-      <div><div class="chat-title">Trợ lý VNLUX</div><div class="chat-sub">Hỏi về giá · chính sách · ảnh resort</div></div>
+<div class="screen" id="s-home">
+<div class="header">
+  <div><div class="header-logo">✈ VNLUX</div><div class="header-sub" id="hdr-name"></div></div>
+  <button class="logout-btn" onclick="doLogout()" title="Đăng xuất">🚪</button>
+</div>
+<div class="dash-body">
+  <div class="dash-hero">
+    <div class="dash-welcome">Chào mừng trở lại,</div>
+    <div class="dash-name" id="dash-name">CTV</div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-val gold" id="stat-bk">—</div><div class="stat-lbl">Booking hoạt động</div></div>
+      <div class="stat-card"><div class="stat-val gold" id="stat-debt">—</div><div class="stat-lbl">Còn phải thu</div></div>
     </div>
-    <button class="chat-x" onclick="toggleChat()">×</button>
   </div>
-  <div class="chat-msgs" id="chatMsgs">
-    <div class="msg bot">Xin chào! Mình là trợ lý VNLUX. Bạn cần hỏi gì về khách sạn, giá phòng hay chính sách không? 🏨</div>
+  <div class="quick-grid" style="grid-template-columns:1fr 1fr;gap:10px;padding:16px">
+    <div class="quick-btn" onclick="navTo('s-price')"><div class="quick-icon">💰</div><div class="quick-label">Tra giá</div></div>
+    <div class="quick-btn" onclick="navTo('s-quote')"><div class="quick-icon">📄</div><div class="quick-label">Báo giá</div></div>
+    <div class="quick-btn" onclick="navTo('s-booking')"><div class="quick-icon">📝</div><div class="quick-label">Tạo booking</div></div>
+    <div class="quick-btn" onclick="navTo('s-list')"><div class="quick-icon">📋</div><div class="quick-label">Xem booking</div></div>
   </div>
-  <div class="qbtns" id="qbtns">
-    <button class="qb" onclick="quickAsk('KOI có những hạng phòng nào và giá bao nhiêu?')">Phòng KOI?</button>
-    <button class="qb" onclick="quickAsk('Phụ thu lễ 30/4 tính thế nào?')">Phụ thu 30/4?</button>
-    <button class="qb" onclick="quickAsk('Hiện có CTKM nào đang chạy không?')">CTKM hiện tại?</button>
-    <button class="qb" onclick="quickAsk('Resort nào có pool villa view biển?')">Pool villa?</button>
-    <button class="qb" onclick="quickAsk('Chính sách trẻ em của các resort?')">Phí trẻ em?</button>
+  <div class="section"><div class="section-title">Booking gần đây</div><div id="recent-list"><div class="loading">⏳ Đang tải...</div></div></div>
+</div>
+<nav class="bottom-nav">
+  <div class="nav-item active" onclick="navTo('s-home',this)"><span class="nav-icon">🏠</span><span class="nav-label">Trang chủ</span></div>
+  <div class="nav-item" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
+  <div class="nav-item" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
+  <div class="nav-item" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
+  <div class="nav-item" onclick="navTo('s-list',this)"><span class="nav-icon">📋</span><span class="nav-label">Booking</span></div>
+</nav>
+</div>
+
+<div class="screen" id="s-price">
+<div class="header">
+  <div style="display:flex;align-items:center;gap:10px"><button class="header-back" onclick="navTo('s-home')">←</button><div class="header-title">Tra giá phòng</div></div>
+</div>
+<div class="form-body" style="padding:12px 12px 80px">
+
+  <!-- STEP 1: Search hotel -->
+  <div class="field" style="margin-bottom:12px">
+    <label class="field-label">🏨 Tên khách sạn</label>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="p-hotel-search" placeholder="Gõ tên: KOI, Radisson, Memories..."
+        oninput="onHotelSearch(this.value)" autocomplete="off">
+      <div class="search-drop" id="p-hotel-drop"></div>
+    </div>
+    <input type="hidden" id="p-hotel">
   </div>
-  <div class="chat-inp-row">
-    <input id="chatInput" placeholder="Nhập câu hỏi…" onkeydown="if(event.key==='Enter')sendChat()"/>
-    <button id="chatSend" onclick="sendChat()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="#0a1628" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
+
+  <!-- STEP 2: Dates -->
+  <div class="field-row" style="margin-bottom:12px">
+    <div class="field"><label class="field-label">📅 Check-in</label>
+      <input type="date" class="field-inp" id="p-ci" onchange="onDateChange()"></div>
+    <div class="field"><label class="field-label">📅 Check-out</label>
+      <input type="date" class="field-inp" id="p-co" onchange="onDateChange()"></div>
   </div>
+  <div class="field-row" style="margin-bottom:16px">
+    <div class="field"><label class="field-label">Người lớn</label>
+      <select class="field-inp" id="p-adults"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+    <div class="field"><label class="field-label">Trẻ em (5-11t)</label>
+      <select class="field-inp" id="p-kids"><option selected>0</option><option>1</option><option>2</option><option>3</option></select></div>
+  </div>
+
+  <!-- STEP 3: Room cards (hiện sau khi chọn KS + ngày) -->
+  <div id="p-rooms-area" style="display:none">
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Chọn hạng phòng</div>
+    <div id="p-room-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px"></div>
+    <input type="hidden" id="p-room">
+    <button class="btn-primary" id="btn-xemgia" onclick="doCheckPrice()" style="display:none">✅ Xem giá chi tiết</button>
+    <div id="price-result" style="margin-top:16px"></div>
+  </div>
+</div>
+<nav class="bottom-nav">
+  <div class="nav-item" onclick="navTo('s-home',this)"><span class="nav-icon">🏠</span><span class="nav-label">Trang chủ</span></div>
+  <div class="nav-item active" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
+  <div class="nav-item" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
+  <div class="nav-item" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
+  <div class="nav-item" onclick="navTo('s-list',this)"><span class="nav-icon">📋</span><span class="nav-label">Booking</span></div>
+</nav>
+</div>
+
+<div class="screen" id="s-booking">
+<div class="header">
+  <div style="display:flex;align-items:center;gap:10px"><button class="header-back" onclick="navTo('s-home')">←</button><div class="header-title">Tạo booking mới</div></div>
+</div>
+<div class="form-body">
+  <div class="field"><label class="field-label">Khách sạn</label><select class="field-inp" id="b-hotel" onchange="updateRoomList(this.value,'b-room')"><option value="">-- Chọn khách sạn --</option></select></div>
+  <div class="field"><label class="field-label">Loại phòng</label><select class="field-inp" id="b-room"><option value="">-- Chọn khách sạn trước --</option></select></div>
+  <div class="field-row">
+    <div class="field"><label class="field-label">Check-in</label><input type="date" class="field-inp" id="b-ci"></div>
+    <div class="field"><label class="field-label">Check-out</label><input type="date" class="field-inp" id="b-co"></div>
+  </div>
+  <div class="field"><label class="field-label">Tên khách (đầy đủ)</label><input class="field-inp" id="b-guest" placeholder="Nguyễn Văn A"></div>
+  <div class="field"><label class="field-label">Số điện thoại khách</label><input class="field-inp" id="b-phone" placeholder="0901234567" type="tel"></div>
+  <div class="field-row">
+    <div class="field"><label class="field-label">Người lớn</label><select class="field-inp" id="b-adults"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
+    <div class="field"><label class="field-label">Trẻ em</label><select class="field-inp" id="b-kids"><option selected>0</option><option>1</option><option>2</option></select></div>
+  </div>
+  <div class="field"><label class="field-label">Yêu cầu đặc biệt</label><input class="field-inp" id="b-note" placeholder="View biển, tầng cao, honeymoon..."></div>
+  <button class="btn-primary btn-teal" id="btn-create" onclick="doCreateBooking()">✅ Gửi yêu cầu booking</button>
+</div>
+<nav class="bottom-nav">
+  <div class="nav-item" onclick="navTo('s-home',this)"><span class="nav-icon">🏠</span><span class="nav-label">Trang chủ</span></div>
+  <div class="nav-item" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
+  <div class="nav-item" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
+  <div class="nav-item active" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
+  <div class="nav-item" onclick="navTo('s-list',this)"><span class="nav-icon">📋</span><span class="nav-label">Booking</span></div>
+</nav>
+</div>
+
+<div class="screen" id="s-list">
+<div class="header">
+  <div style="display:flex;align-items:center;gap:10px"><button class="header-back" onclick="navTo('s-home')">←</button><div class="header-title">Booking của tôi</div></div>
+</div>
+<div class="form-body" style="padding-top:8px"><div id="booking-list"><div class="loading">⏳ Đang tải...</div></div></div>
+<nav class="bottom-nav">
+  <div class="nav-item" onclick="navTo('s-home',this)"><span class="nav-icon">🏠</span><span class="nav-label">Trang chủ</span></div>
+  <div class="nav-item" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
+  <div class="nav-item" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
+  <div class="nav-item" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
+  <div class="nav-item active" onclick="navTo('s-list',this)"><span class="nav-icon">📋</span><span class="nav-label">Booking</span></div>
+</nav>
 </div>
 
 
-<!-- ═══ LOGIN MODAL (NEW v3+API) — giữ V3 dark navy + gold aesthetic ═══ -->
-<div id="loginModal" style="position:fixed;inset:0;background:rgba(10,22,40,.96);z-index:300;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
-  <div style="background:#0f2040;border:1px solid rgba(201,168,76,.3);border-radius:16px;padding:36px 32px;width:90%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,.6)">
-    <div style="text-align:center;margin-bottom:28px">
-      <div style="width:42px;height:42px;border:1.5px solid #c9a84c;border-radius:8px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
-        <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M9 2L15.5 6V12L9 16L2.5 12V6L9 2Z" stroke="#c9a84c" stroke-width="1.3" fill="none"/><circle cx="9" cy="9" r="2.5" fill="#c9a84c"/></svg>
-      </div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#f8f5ef;letter-spacing:.03em">VNLUX TRAVEL</div>
-      <div style="font-size:11px;color:#c9a84c;letter-spacing:.14em;text-transform:uppercase;margin-top:4px">CTV Portal · v3.1</div>
-    </div>
-    <div style="margin-bottom:13px">
-      <div class="fl">Mã CTV</div>
-      <input class="fi" id="loginId" placeholder="V101 · V110 · ADMIN01…" style="margin-top:6px;background:rgba(255,255,255,.05)" onkeydown="if(event.key==='Enter')document.getElementById('loginPwd').focus()">
-    </div>
-    <div style="margin-bottom:16px">
-      <div class="fl">Mật khẩu</div>
-      <input class="fi" id="loginPwd" type="password" placeholder="Mật khẩu" style="margin-top:6px;background:rgba(255,255,255,.05)" onkeydown="if(event.key==='Enter')doLogin()">
-    </div>
-    <div id="loginError" style="font-size:12px;color:#f09595;margin-bottom:10px;padding:7px 10px;background:rgba(240,149,149,.08);border-radius:6px;display:none"></div>
-    <button id="loginBtn" class="btn btn-gold" style="width:100%;padding:13px;font-size:15px" onclick="doLogin()">Đăng nhập →</button>
-    <div style="font-size:11px;color:#a09880;text-align:center;margin-top:13px">Mật khẩu mặc định: <span style="color:#c9a84c">vnlux2026</span></div>
+<!-- ═══ SCREEN: BÁO GIÁ (NEW) ═══ -->
+<div class="screen" id="s-quote">
+<div class="header">
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="header-back" onclick="navTo('s-home')">←</button>
+    <div class="header-title">Tạo báo giá</div>
   </div>
 </div>
+<div class="form-body" id="quote-body" style="padding:12px 12px 90px">
 
+  <!-- Hiện khi chưa có giá nào được tra -->
+  <div id="quote-no-sel" class="no-selection">
+    <div class="no-sel-icon">📋</div>
+    <div class="no-sel-text">Hãy tra giá phòng trước,<br>sau đó bấm "Tạo báo giá" để tạo file</div>
+    <button class="btn-primary" onclick="navTo('s-price')">💰 Tra giá ngay</button>
+  </div>
+
+  <!-- Hiện khi đã có giá -->
+  <div id="quote-has-sel" style="display:none">
+
+    <!-- Tóm tắt thông tin -->
+    <div class="quote-summary">
+      <div class="qs-hotel" id="q-hotel-name">—</div>
+      <div class="qs-row"><span class="qs-lbl">Hạng phòng</span><span class="qs-val" id="q-room-name">—</span></div>
+      <div class="qs-row"><span class="qs-lbl">Check-in</span><span class="qs-val" id="q-ci">—</span></div>
+      <div class="qs-row"><span class="qs-lbl">Check-out</span><span class="qs-val" id="q-co">—</span></div>
+      <div class="qs-row"><span class="qs-lbl">Số đêm</span><span class="qs-val" id="q-nights">—</span></div>
+      <div class="qs-row"><span class="qs-lbl">Khách</span><span class="qs-val" id="q-guests">—</span></div>
+    </div>
+
+    <!-- Thông tin CTV -->
+    <div class="markup-box">
+      <div class="markup-title">Thông tin CTV (hiện trên báo giá)</div>
+      <div class="field-row" style="margin-bottom:10px">
+        <div class="field">
+          <label class="field-label">Tên CTV</label>
+          <input class="field-inp" id="q-ctv-name" placeholder="Nguyễn Văn A">
+        </div>
+        <div class="field">
+          <label class="field-label">SĐT CTV</label>
+          <input class="field-inp" id="q-ctv-phone" placeholder="0901234567" type="tel">
+        </div>
+      </div>
+    </div>
+
+    <!-- Tính giá báo -->
+    <div class="markup-box">
+      <div class="markup-title">Tính giá báo cho khách</div>
+      <div class="markup-row">
+        <span class="markup-lbl">Giá net (giá vốn)</span>
+        <span class="markup-price" id="q-net-price">0đ</span>
+      </div>
+      <div class="markup-row" style="align-items:center">
+        <span class="markup-lbl">Lãi CTV muốn cộng thêm</span>
+        <div class="markup-inp-wrap">
+          <input class="markup-inp" id="q-markup" type="number" min="0" step="50000"
+            placeholder="0" oninput="calcQuotePrice()">đ
+        </div>
+      </div>
+      <div class="markup-row">
+        <span class="markup-lbl">Tổng lãi (tất cả đêm)</span>
+        <span class="markup-price" id="q-total-markup" style="color:var(--teal)">0đ</span>
+      </div>
+      <div class="customer-price">
+        <span class="cp-lbl">Giá báo cho khách</span>
+        <span class="cp-amt" id="q-customer-price">0đ</span>
+      </div>
+    </div>
+
+    <!-- Ghi chú thêm -->
+    <div class="field" style="margin-bottom:14px">
+      <label class="field-label">Ghi chú thêm (tùy chọn)</label>
+      <input class="field-inp" id="q-note" placeholder="VD: Bao gồm bữa sáng, đón sân bay...">
+    </div>
+
+    <button class="btn-quote" onclick="generateQuote()">📄 Tạo & In báo giá</button>
+  </div>
+</div>
+<nav class="bottom-nav">
+  <div class="nav-item" onclick="navTo('s-home',this)"><span class="nav-icon">🏠</span><span class="nav-label">Trang chủ</span></div>
+  <div class="nav-item" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
+  <div class="nav-item active" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
+  <div class="nav-item" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
+  <div class="nav-item" onclick="navTo('s-list',this)"><span class="nav-icon">📋</span><span class="nav-label">Booking</span></div>
+</nav>
+</div>
+
+
+</div>
 <script>
-// ═══════════════════════════════════════════════════════════════════════
-//  VNLUX Portal v3.1 — UI/UX V3 + API Backend v5.3
-//  Giữ nguyên: toàn bộ HTML, CSS, step flow, room-card UI, chatbox UI
-//  Thay: nguồn dữ liệu (CSV → API), logic giá, submit booking, state
-// ═══════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+// CẤU HÌNH — Paste WEB_APP_URL vào đây
+// ══════════════════════════════════════════════════
+const API_URL = "https://script.google.com/macros/s/AKfycbzX8Q4DtJi-3xH661N2s19hECCMy9TX0UloH9dRoFLQt6KbN_b61B-LuYJkfm_5cQ0SFQ/exec";
 
-// ── SECTION 1: CONFIGURATION ──────────────────────────────────────────
-const API_URL       = "https://script.google.com/macros/s/AKfycbzX8Q4DtJi-3xH661N2s19hECCMy9TX0UloH9dRoFLQt6KbN_b61B-LuYJkfm_5cQ0SFQ/exec";
-const CLAUDE_API_KEY = ""; // Tùy chọn: điền key cho chatbox AI
+// ══════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════
+let token = sessionStorage.getItem("vx_token");
+let user  = JSON.parse(sessionStorage.getItem("vx_user")||"null");
+let hotels= [];
+let roomMap = {};
+let lastPrice = null;
 
-// ── SECTION 2: STATE (unified, replaces multiple globals) ─────────────
-const STATE = {
-  token:    sessionStorage.getItem("vx_token") || null,
-  ctv:      JSON.parse(sessionStorage.getItem("vx_ctv") || "null"),
-  hotel:    null,
-  room:     null,   // selected room (API format: {room_type, room_name, gia_ban,...})
-  rooms:    [],     // all rooms for current hotel+dates
-  checkin:  null,
-  checkout: null,
-  nights:   0,
-  total:    0,
-  priceData: null,  // getEnhancedPrice response (for step 2 breakdown)
-};
-
-// backward-compat vars (giữ V3 code gọi được)
-let HOTELS = [], selHotel = null, selRoom = null, selPriceType = "contract", nights = 0;
-
-// ── SECTION 3: API HELPER ─────────────────────────────────────────────
-async function apiCall(action, body = {}) {
+// ══════════════════════════════════════════════════
+// API CALL
+// ══════════════════════════════════════════════════
+async function api(action, body={}) {
+  // GAS CORS fix: không dùng Content-Type: application/json
+  // → tránh preflight OPTIONS request mà GAS không handle đúng
   const res = await fetch(API_URL, {
     method: "POST",
-    body: JSON.stringify({ action, token: STATE.token, ...body })
+    body: JSON.stringify({action, token, ...body})
   });
+  if (!res.ok) throw new Error("HTTP " + res.status);
   return res.json();
 }
 
-// ── SECTION 4: LOGIN ──────────────────────────────────────────────────
-function showLogin()  { document.getElementById("loginModal").style.display = "flex"; }
-function hideLogin()  { document.getElementById("loginModal").style.display = "none"; }
-
-function updateCtvBadge() {
-  if (STATE.ctv)
-    document.getElementById("ctvBadge").textContent = STATE.ctv.name || STATE.ctv.ctv_id;
+// ══════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════
+function navTo(id, el) {
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  if (el) {
+    const navs = el.closest("nav");
+    if (navs) navs.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
+    el.classList.add("active");
+  }
+  if (id==="s-home")    loadDashboard();
+  if (id==="s-list")    loadBookings();
+  if (id==="s-price")   initDates("p-ci","p-co");
+  if (id==="s-booking") { initDates("b-ci","b-co"); loadHotelDropdowns(); }
+  if (id==="s-quote")   refreshQuoteScreen();
 }
 
+// ══════════════════════════════════════════════════
+// LOGIN / LOGOUT
+// ══════════════════════════════════════════════════
 async function doLogin() {
-  const btn   = document.getElementById("loginBtn");
-  const errEl = document.getElementById("loginError");
-  const ctvId = document.getElementById("loginId").value.trim().toUpperCase();
-  const pwd   = document.getElementById("loginPwd").value;
-  if (!ctvId) { errEl.textContent = "Nhập mã CTV"; errEl.style.display = "block"; return; }
-  btn.textContent = "Đang đăng nhập…"; btn.disabled = true;
-  errEl.style.display = "none";
+  const ctv_id  = document.getElementById("login-id").value.trim().toUpperCase();
+  const password= document.getElementById("login-pw").value;
+  if (!ctv_id) { alert("Vui lòng nhập mã CTV"); return; }
+  const btn = document.getElementById("btn-login");
+  btn.textContent="⏳ Đang đăng nhập..."; btn.disabled=true;
   try {
-    const r = await apiCall("login", { ctv_id: ctvId, password: pwd });
+    const r = await api("login",{ctv_id, password});
     if (r && r.ok) {
-      STATE.token = r.token;  STATE.ctv = r.ctv;
-      sessionStorage.setItem("vx_token", r.token);
-      sessionStorage.setItem("vx_ctv",   JSON.stringify(r.ctv));
-      document.getElementById("ctvCode").value = ctvId;
-      updateCtvBadge();
-      hideLogin();
-      loadHotels();
+      token=r.token; user=r.ctv;
+      sessionStorage.setItem("vx_token",token);
+      sessionStorage.setItem("vx_user",JSON.stringify(user));
+      onLoggedIn();
     } else {
-      errEl.textContent = r?.error || "Sai mã CTV hoặc mật khẩu";
-      errEl.style.display = "block";
+      alert("❌ " + (r?.error||"Đăng nhập thất bại"));
     }
   } catch(e) {
-    errEl.textContent = "Lỗi kết nối: " + e.message;
-    errEl.style.display = "block";
+    alert("Lỗi kết nối:\n" + e.message + "\n\nKiểm tra API_URL trong file HTML");
   }
-  btn.textContent = "Đăng nhập →"; btn.disabled = false;
+  btn.textContent="Đăng nhập →"; btn.disabled=false;
 }
 
-// ── SECTION 5: LOAD HOTELS from API (replaces CSV loadData) ──────────
-async function loadData() { return loadHotels(); } // backward-compat
+function onLoggedIn() {
+  document.getElementById("hdr-name").textContent = user?.ctv_id||"";
+  document.getElementById("dash-name").textContent= user?.name||user?.ctv_id||"CTV";
+  loadHotelList();
+  navTo("s-home");
+}
 
-async function loadHotels() {
-  document.getElementById("loadingBar").style.display = "flex";
-  document.getElementById("errorBar").style.display   = "none";
-  document.getElementById("searchArea").style.display = "none";
+function doLogout() {
+  if (!confirm("Đăng xuất khỏi VNLUX Portal?")) return;
+  sessionStorage.clear(); token=null; user=null;
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("s-login").classList.add("active");
+}
+
+// ══════════════════════════════════════════════════
+// HOTEL LIST
+// ══════════════════════════════════════════════════
+async function loadHotelList() {
   try {
-    const r = await apiCall("getHotels");
-    if (!r || !r.ok) throw new Error(r?.error || "API error");
-    // Map API hotel format → V3 internal format
-    HOTELS = (r.hotels || []).map(h => ({
-      id:         h.hotel_id,
-      name:       h.name || h.hotel_id,
-      short:      h.name || h.hotel_id,
-      area:       h.area || "",
-      loc:        h.ghi_chu || h.area || "",
-      avatar:     (h.hotel_id || "?").slice(0, 3),
-      aliases:    [],             // search by name only
-      image_url:  h.image_url || "",
-      drive_url:  h.drive_url || "",
-      promo_name: "",             // pulled from price API if available
-      promo_from: "", promo_to: "",
-      rooms:      []              // loaded via getPrice per hotel
-    }));
-    document.getElementById("loadingBar").style.display = "none";
-    document.getElementById("searchArea").style.display = "block";
+    const r = await api("getHotels");
+    if (!r||!r.ok) return;
+    hotels = r.hotels||r.data||[];
+    roomMap = {};
+    hotels.forEach(h => { roomMap[h.hotel_id] = h.rooms||[]; });
+    ["p-hotel","b-hotel"].forEach(id => {
+      const sel = document.getElementById(id);
+      const cur = sel.value;
+      sel.innerHTML = '<option value="">-- Chọn khách sạn --</option>' +
+        hotels.map(h=>`<option value="${h.hotel_id}">${h.name||h.name_display||h.hotel_name||h.hotel_id}</option>`).join("");
+      if (cur) sel.value = cur;
+    });
+  } catch(e) { console.log("Hotel load error:", e); }
+}
+
+// ── Hotel search ──────────────────────────────────────────────────
+function onHotelSearch(query) {
+  const q = query.toLowerCase().trim();
+  const drop = document.getElementById("p-hotel-drop");
+  if (!q) { drop.style.display="none"; return; }
+
+  const matches = hotels.filter(h => {
+    const name = (h.name||h.name_display||h.hotel_name||"").toLowerCase();
+    const id   = (h.hotel_id||"").toLowerCase();
+    const area = (h.area||"").toLowerCase();
+    return name.includes(q) || id.includes(q) || area.includes(q);
+  });
+
+  if (!matches.length) { drop.style.display="none"; return; }
+  drop.innerHTML = matches.map(h => `
+    <div class="search-item" onclick="selectHotel('${h.hotel_id}','${h.name||h.name_display||h.hotel_id}')">
+      <div>${h.name||h.name_display||h.hotel_id}</div>
+      <div class="search-item-sub">${h.area||""} · ${h.hotel_id}</div>
+    </div>`).join("");
+  drop.style.display = "block";
+}
+
+function selectHotel(hotelId, hotelName) {
+  document.getElementById("p-hotel").value = hotelId;
+  document.getElementById("p-hotel-search").value = hotelName;
+  document.getElementById("p-hotel-drop").style.display = "none";
+  loadRoomCards();
+}
+
+document.addEventListener("click", e => {
+  if (!e.target.closest(".search-wrap")) {
+    const drop = document.getElementById("p-hotel-drop");
+    if (drop) drop.style.display = "none";
+  }
+});
+
+function onDateChange() { loadRoomCards(); }
+
+async function loadRoomCards() {
+  const hotelId  = document.getElementById("p-hotel").value;
+  const checkin  = document.getElementById("p-ci").value;
+  const checkout = document.getElementById("p-co").value;
+  if (!hotelId || !checkin || !checkout) return;
+
+  const area = document.getElementById("p-rooms-area");
+  const cardsDiv = document.getElementById("p-room-cards");
+  area.style.display = "block";
+  document.getElementById("btn-xemgia").style.display = "none";
+  document.getElementById("price-result").innerHTML = "";
+  document.getElementById("p-room").value = "";
+  cardsDiv.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--muted)">⏳ Đang tải giá...</div>';
+
+  try {
+    const r = await api("getPrice", {hotel_id:hotelId, checkin, checkout});
+    const rooms = (r&&r.ok) ? (r.rooms||[]) : [];
+    if (!rooms.length) {
+      cardsDiv.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--red)">Không có giá cho giai đoạn này. Kiểm tra PRICE_RULES.</div>';
+      return;
+    }
+    cardsDiv.innerHTML = rooms.map(rm => `
+      <div class="room-card" onclick="selectRoomCard(this,'${rm.room_type}')">
+        <div class="room-card-name">${rm.room_name||rm.room_type}</div>
+        <div class="room-card-price">${Number(rm.gia_ban||0).toLocaleString("vi-VN")}đ</div>
+        <div class="room-card-sub">/phòng/đêm${rm.is_weekend&&rm.weekend_surcharge>0?" (inc. cuối tuần)":""}</div>
+        ${rm.min_nights>0?`<div class="room-card-sub" style="color:var(--gold)">Min ${rm.min_nights} đêm</div>`:""}
+      </div>`).join("");
   } catch(e) {
-    document.getElementById("loadingBar").style.display = "none";
-    document.getElementById("errorBar").style.display   = "block";
-    console.error("loadHotels:", e);
+    cardsDiv.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--red)">❌ Lỗi tải phòng</div>';
   }
 }
 
-// ── SECTION 6: SEARCH (V3 logic kept, works with API hotel data) ──────
-function norm(s) {
-  return (s || "").toLowerCase().normalize("NFD")
-    .replace(/[̀-ͯ]/g, "").replace(/đ/g, "d");
+function selectRoomCard(el, roomType) {
+  document.querySelectorAll(".room-card").forEach(c=>c.classList.remove("selected"));
+  el.classList.add("selected");
+  document.getElementById("p-room").value = roomType;
+  document.getElementById("btn-xemgia").style.display = "block";
+  document.getElementById("price-result").innerHTML = "";
 }
 
-function searchHotel(q) {
-  const dd = document.getElementById("dropdown");
-  if (!q.trim()) { dd.style.display = "none"; return; }
-  const lq = norm(q);
-  const res = HOTELS.filter(h => {
-    const hay = norm([h.name, h.short, ...(h.aliases || [])].join(" "));
-    return lq.split(" ").some(w => w.length > 0 && hay.includes(w));
-  }).slice(0, 8);
-  if (!res.length) { dd.style.display = "none"; return; }
-  dd.innerHTML = res.map(h => `
-    <div class="dd-item" onclick="selectHotel('${h.id}')">
-      ${h.image_url ? `<img class="dd-thumb" src="${h.image_url}" onerror="this.style.display='none'" loading="lazy"/>` : ""}
-      <div class="dd-info">
-        <div class="dd-name">${h.name}</div>
-        <div class="dd-area">${h.area}</div>
+async function onHotelChange(hotelId) {
+  const area = document.getElementById("p-rooms-area");
+  const cardsDiv = document.getElementById("p-room-cards");
+  if (!hotelId) { area.style.display="none"; return; }
+  area.style.display="block";
+  cardsDiv.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--muted)">⏳ Đang tải phòng...</div>';
+  document.getElementById("p-room").value = "";
+  try {
+    const r = await api("getPrice", {hotel_id: hotelId, checkin: document.getElementById("p-ci").value||new Date().toISOString().split("T")[0]});
+    const rooms = (r&&r.ok) ? (r.rooms||[]) : [];
+    if (!rooms.length) {
+      cardsDiv.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--red)">Không có phòng. Kiểm tra PRICE_RULES.</div>';
+      return;
+    }
+    cardsDiv.innerHTML = rooms.map(rm => `
+      <div class="room-card" onclick="selectRoomCard(this,'${rm.room_type}')">
+        <div class="room-card-name">${rm.room_name||rm.room_type}</div>
+        <div class="room-card-price">${Number(rm.gia_ban||0).toLocaleString("vi-VN")}đ</div>
+        <div class="room-card-sub">/phòng/đêm</div>
+      </div>`).join("");
+  } catch(e) { cardsDiv.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--red)">❌ Lỗi tải phòng</div>'; }
+}
+
+// [removed duplicate selectRoomCard - using version above]
+
+async function updateRoomList(hotelId, targetId) {
+  const sel = document.getElementById(targetId);
+  if (!hotelId) { sel.innerHTML='<option value="">-- Chọn khách sạn trước --</option>'; return; }
+  sel.innerHTML = '<option value="">⏳ Đang tải phòng...</option>';
+  try {
+    const r = await api("getPrice", {hotel_id: hotelId, checkin: new Date().toISOString().split("T")[0]});
+    const rooms = (r && r.ok) ? (r.rooms||[]) : [];
+    if (rooms.length) {
+      sel.innerHTML = rooms.map(rm =>
+        `<option value="${rm.room_type}">${rm.room_name||rm.room_type} — ${Number(rm.gia_ban||0).toLocaleString("vi-VN")}đ/đêm</option>`
+      ).join("");
+    } else {
+      sel.innerHTML = '<option value="">Không có phòng — kiểm tra PRICE_RULES</option>';
+    }
+  } catch(e) { sel.innerHTML='<option value="">Lỗi tải phòng</option>'; }
+}
+
+// ══════════════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════════════
+async function loadDashboard() {
+  try {
+    const r = await api("getMyBookings");
+    if (!r||!r.ok) return;
+    const bks = r.bookings||r.data||[];
+    const active = bks.filter(b=>!["CLOSED","CANCELLED"].includes(b.trang_thai)).length;
+    const debt   = bks.reduce((s,b)=>s+(Number(b.con_phai_thu)||0),0);
+    document.getElementById("stat-bk").textContent   = active;
+    document.getElementById("stat-debt").textContent = debt>0 ? fmtM(debt) : "✅ 0";
+    const recent = bks.slice(0,3);
+    document.getElementById("recent-list").innerHTML = recent.length
+      ? recent.map(bkCard).join("")
+      : '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Chưa có booking</div><div class="empty-sub">Tạo booking đầu tiên!</div></div>';
+  } catch(e) { document.getElementById("recent-list").innerHTML='<div class="loading">❌ Lỗi tải dữ liệu</div>'; }
+}
+
+// ══════════════════════════════════════════════════
+// BOOKING LIST
+// ══════════════════════════════════════════════════
+async function loadBookings() {
+  document.getElementById("booking-list").innerHTML='<div class="loading">⏳ Đang tải...</div>';
+  try {
+    const r = await api("getMyBookings");
+    if (!r||!r.ok) throw new Error(r?.error||"Lỗi API");
+    const bks = r.bookings||r.data||[];
+    document.getElementById("booking-list").innerHTML = bks.length
+      ? bks.map(bkCard).join("")
+      : '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Chưa có booking nào</div></div>';
+  } catch(e) { document.getElementById("booking-list").innerHTML='<div class="loading">❌ '+e.message+'</div>'; }
+}
+
+const STATUS = {DRAFT:["Nháp","s-draft"],CONFIRMED:["Xác nhận","s-confirmed"],PARTIAL_PAID:["Thanh toán 1 phần","s-partial"],PAID:["Đã thanh toán","s-paid"],CLOSED:["Đã kết","s-paid"],CANCELLED:["Đã hủy","s-draft"],AWAITING_PAYMENT_CONFIRMATION:["Chờ xác nhận TT","s-partial"]};
+function bkCard(b) {
+  const [lbl,cls] = STATUS[b.trang_thai]||["—","s-draft"];
+  const ks = hotels.find(h=>h.hotel_id===b.hotel_id);
+  const ksName = ks ? (ks.name_display||ks.hotel_name) : b.hotel_id;
+  return `<div class="booking-card">
+    <div class="bk-top"><span class="bk-code">${b.ma_code}</span><span class="bk-status ${cls}">${lbl}</span></div>
+    <div class="bk-hotel">🏨 ${ksName}</div>
+    <div class="bk-dates">📅 ${b.checkin} → ${b.checkout} · ${b.loai_phong||""}</div>
+    <div class="bk-bottom">
+      <span class="bk-amount">${fmt(b.tong_ban)}đ</span>
+      <span style="font-size:11px;color:var(--muted)">${b.con_phai_thu>0?"Còn PT: "+fmt(b.con_phai_thu)+"đ":"✅ Đủ"}</span>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════
+// PRICE CHECK
+// ══════════════════════════════════════════════════
+async function doCheckPrice() {
+  const hotel_id  = document.getElementById("p-hotel").value;
+  const room_type = document.getElementById("p-room").value;
+  const checkin   = document.getElementById("p-ci").value;
+  const checkout  = document.getElementById("p-co").value;
+  const adults    = +document.getElementById("p-adults").value;
+  const children  = +document.getElementById("p-kids").value;
+  if (!hotel_id||!room_type||!checkin||!checkout) { alert("Vui lòng điền đủ thông tin"); return; }
+  document.getElementById("price-result").innerHTML='<div class="loading">⏳ Đang tra giá...</div>';
+  const nights = Math.round((new Date(checkout)-new Date(checkin))/86400000);
+  try {
+    const r = await api("getEnhancedPrice",{hotel_id,room_type,checkin,checkout,adults,children,nights,rooms:1});
+    if (!r||!r.ok) throw new Error(r?.error||"Không tìm thấy giá");
+    const p = r.pricing||{};
+    const hotelObj = hotels.find(h=>h.hotel_id===hotel_id)||{};
+    lastPrice = {
+      hotel_id, room_type, checkin, checkout, adults, children,
+      roomName: p.room_name||room_type,
+      priceResult: p,
+      hotelName: hotelObj.name||hotelObj.name_display||hotel_id,
+      hotelImage: hotelObj.image_url||"",
+      hotelDrive: hotelObj.drive_url||"",
+      hotelArea: hotelObj.area||""
+    };
+    const bdRows = (p.breakdown||[]).filter(b=>b.amount>0).map(b=>`<div class="price-row"><span>${b.label}</span><span style="font-weight:600">${fmt(b.amount)}đ</span></div>`).join("");
+    const warns  = (p.warnings||[]).map(w=>`<div class="price-warning">${w}</div>`).join("");
+    document.getElementById("price-result").innerHTML=`
+      <div class="price-result">
+        <div class="price-hotel">${hotelObj.name||hotelObj.name_display||hotel_id}</div>
+        <div class="price-room">${p.room_name||room_type} · ${nights} đêm</div>
+        ${bdRows}
+        <div class="price-total-row"><span class="price-total-lbl">Tổng ${nights} đêm</span><span class="price-total-val">${fmt(p.grand_total)}đ</span></div>
+        ${warns}
+        ${p.cancel_policy?`<div class="price-warning">📋 ${p.cancel_policy.name_vi}: ${p.cancel_policy.description}</div>`:""}
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <button class="btn-primary btn-teal" style="flex:1" onclick="goBookFromPrice()">📝 Đặt phòng</button>
+          <button class="btn-primary" style="flex:1;background:var(--gold)" onclick="goToQuote()">📄 Báo giá</button>
+        </div>
+      </div>`;
+  } catch(e) { document.getElementById("price-result").innerHTML='<div class="loading">❌ '+e.message+'</div>'; }
+}
+
+function goBookFromPrice() {
+  if (lastPrice) {
+    // Pre-fill hotel dropdown
+    document.getElementById("b-hotel").value = lastPrice.hotel_id;
+    // Pre-fill dates
+    document.getElementById("b-ci").value  = lastPrice.checkin;
+    document.getElementById("b-co").value  = lastPrice.checkout;
+    // Pre-fill adults/children
+    if (lastPrice.adults)   document.getElementById("b-adults").value = lastPrice.adults;
+    if (lastPrice.children !== undefined) document.getElementById("b-kids").value = lastPrice.children;
+    // Load room list then select the room
+    updateRoomList(lastPrice.hotel_id,"b-room").then(()=>{
+      document.getElementById("b-room").value = lastPrice.room_type;
+    });
+  }
+  navTo("s-booking");
+}
+
+// ══════════════════════════════════════════════════
+// CREATE BOOKING
+// ══════════════════════════════════════════════════
+async function doCreateBooking() {
+  const body = {
+    hotel_id:    document.getElementById("b-hotel").value,
+    room_type:   document.getElementById("b-room").value,
+    checkin:     document.getElementById("b-ci").value,
+    checkout:    document.getElementById("b-co").value,
+    guest_name:  document.getElementById("b-guest").value.trim(),
+    guest_phone: document.getElementById("b-phone").value.trim(),
+    so_luong:    1,
+    nguoi_lon:   +document.getElementById("b-adults").value,
+    tre_em:      +document.getElementById("b-kids").value,
+    note:        document.getElementById("b-note").value
+  };
+  if (!body.hotel_id||!body.room_type||!body.checkin||!body.checkout||!body.guest_name||!body.guest_phone) {
+    alert("Vui lòng điền đủ thông tin bắt buộc"); return;
+  }
+  const btn = document.getElementById("btn-create");
+  btn.textContent="⏳ Đang gửi..."; btn.disabled=true;
+  try {
+    const r = await api("createBooking",body);
+    if (r&&r.ok) {
+      alert("✅ Booking " + r.ma_code + " đã được tạo!\nSale VNLUX sẽ xác nhận trong thời gian sớm nhất.");
+      navTo("s-list");
+    } else {
+      alert("❌ " + (r?.error||"Lỗi tạo booking"));
+    }
+  } catch(e) { alert("Lỗi: "+e.message); }
+  btn.textContent="✅ Gửi yêu cầu booking"; btn.disabled=false;
+}
+
+// ══════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════
+function fmt(n)  { return Number(n||0).toLocaleString("vi-VN"); }
+function fmtM(n) { return n>=1e6 ? (n/1e6).toFixed(1)+"M" : fmt(n); }
+function initDates(ci,co) {
+  if (!document.getElementById(ci).value) {
+    const t=new Date(); t.setDate(t.getDate()+7);
+    const t2=new Date(t); t2.setDate(t2.getDate()+2);
+    document.getElementById(ci).value=t.toISOString().split("T")[0];
+    document.getElementById(co).value=t2.toISOString().split("T")[0];
+  }
+}
+
+
+// ══════════════════════════════════════════════════
+// QUOTE STATE + FUNCTIONS
+// ══════════════════════════════════════════════════
+let quoteData = null; // {hotel_id, hotelName, roomType, roomName, checkin, checkout, nights, adults, children, netPrice, priceData}
+
+function goToQuote() {
+  // Lấy dữ liệu từ màn hình tra giá
+  if (!lastPrice) { alert("Hãy tra giá phòng trước!"); return; }
+  const hotelId   = document.getElementById("p-hotel").value;
+  const roomType  = document.getElementById("p-room").value;
+  const checkin   = document.getElementById("p-ci").value;
+  const checkout  = document.getElementById("p-co").value;
+  const adults    = +document.getElementById("p-adults").value;
+  const children  = +document.getElementById("p-kids").value;
+  const nights    = Math.round((new Date(checkout)-new Date(checkin))/86400000);
+  const hotel     = hotels.find(h=>h.hotel_id===hotelId)||{};
+  // Lấy giá từ price-result nếu có
+  const priceEl   = document.getElementById("price-result");
+  const totalEl   = priceEl.querySelector(".price-total-val");
+  const netTotal  = totalEl ? parseInt(totalEl.textContent.replace(/\D/g,"")) : 0;
+  const netPerNight = nights > 0 ? Math.round(netTotal/nights) : 0;
+
+  quoteData = {
+    hotel_id: hotelId,
+    hotelName: hotel.name||hotel.name_display||hotel.hotel_id||hotelId,
+    hotelImage: hotel.image_url||"",
+    hotelDrive: hotel.drive_url||"",
+    hotelArea: hotel.area||"",
+    roomType, roomName: lastPrice.roomName||roomType,
+    checkin, checkout, nights, adults, children,
+    netTotal, netPerNight,
+    priceData: lastPrice.priceResult||null
+  };
+  navTo("s-quote");
+}
+
+function refreshQuoteScreen() {
+  if (!quoteData) {
+    document.getElementById("quote-no-sel").style.display = "block";
+    document.getElementById("quote-has-sel").style.display = "none";
+    return;
+  }
+  document.getElementById("quote-no-sel").style.display = "none";
+  document.getElementById("quote-has-sel").style.display = "block";
+
+  document.getElementById("q-hotel-name").textContent = quoteData.hotelName;
+  document.getElementById("q-room-name").textContent  = quoteData.roomName||quoteData.roomType;
+  document.getElementById("q-ci").textContent   = fmtDateVi(quoteData.checkin);
+  document.getElementById("q-co").textContent   = fmtDateVi(quoteData.checkout);
+  document.getElementById("q-nights").textContent = quoteData.nights + " đêm";
+  document.getElementById("q-guests").textContent = quoteData.adults + " người lớn" +
+    (quoteData.children>0 ? ", " + quoteData.children + " trẻ em" : "");
+  document.getElementById("q-net-price").textContent = fmt(quoteData.netTotal) + "đ (tổng " + quoteData.nights + " đêm)";
+
+  // Pre-fill CTV info from logged-in user
+  if (user && !document.getElementById("q-ctv-name").value) {
+    document.getElementById("q-ctv-name").value  = user.name||"";
+    document.getElementById("q-ctv-phone").value = user.phone||"";
+  }
+  calcQuotePrice();
+}
+
+function calcQuotePrice() {
+  if (!quoteData) return;
+  const markup     = parseInt(document.getElementById("q-markup").value||"0")||0;
+  const totalMarkup= markup * quoteData.nights;
+  const customerTotal = quoteData.netTotal + totalMarkup;
+  document.getElementById("q-total-markup").textContent = fmt(totalMarkup) + "đ";
+  document.getElementById("q-customer-price").textContent = fmt(customerTotal) + "đ";
+}
+
+function fmtDateVi(s) {
+  if(!s) return "";
+  const d = new Date(s+"T12:00:00");
+  return d.toLocaleDateString("vi-VN",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"});
+}
+
+function generateQuote() {
+  if (!quoteData) { alert("Không có dữ liệu báo giá"); return; }
+  const ctvName  = document.getElementById("q-ctv-name").value.trim()||"CTV VNLUX";
+  const ctvPhone = document.getElementById("q-ctv-phone").value.trim()||"";
+  const markup   = parseInt(document.getElementById("q-markup").value||"0")||0;
+  const note     = document.getElementById("q-note").value.trim();
+  const totalMarkup   = markup * quoteData.nights;
+  const customerTotal = quoteData.netTotal + totalMarkup;
+  const today    = new Date().toLocaleDateString("vi-VN");
+
+  // Chính sách hủy từ priceData
+  const cancelPol = quoteData.priceData?.cancel_policy;
+  const cancelDesc = cancelPol
+    ? `<b>${cancelPol.name_vi}</b>: ${cancelPol.description}`
+    : "Linh hoạt — vui lòng xác nhận với khách sạn";
+  const warnings = (quoteData.priceData?.warnings||[]).filter(w=>w).join("<br>");
+
+  const quoteHtml = `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Báo giá — ${quoteData.hotelName}</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;color:#1a1a2e}
+  .wrap{max-width:700px;margin:20px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.12)}
+  .hdr{background:linear-gradient(135deg,#1D3461,#1a2a52);color:#fff;padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-start}
+  .brand{font-size:22px;font-weight:700;letter-spacing:.02em}
+  .brand-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:3px;letter-spacing:.08em;text-transform:uppercase}
+  .ctv-info{text-align:right;font-size:13px}
+  .ctv-name{font-weight:600;font-size:15px}
+  .ctv-phone{color:rgba(255,255,255,.7);margin-top:2px}
+  .quote-no{font-size:11px;color:rgba(255,255,255,.5);margin-top:6px}
+  .hotel-img{width:100%;height:200px;object-fit:cover;display:block}
+  .hotel-img-placeholder{width:100%;height:120px;background:linear-gradient(135deg,#1D3461,#1a2a52);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:40px}
+  .body{padding:24px 28px}
+  .section{margin-bottom:22px}
+  .section-title{font-size:11px;font-weight:700;color:#7a8099;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #e4e7ef}
+  .hotel-name{font-size:20px;font-weight:700;color:#1D3461;margin-bottom:4px}
+  .hotel-area{font-size:13px;color:#7a8099}
+  table{width:100%;border-collapse:collapse}
+  td{padding:8px 0;font-size:14px;border-bottom:.5px solid #f0f0f0}
+  td:first-child{color:#7a8099;width:45%}
+  td:last-child{font-weight:500;text-align:right}
+  .price-table td{padding:10px 0}
+  .price-net{color:#7a8099;font-style:italic}
+  .price-total-row td{font-size:17px;font-weight:700;color:#1D3461;border-bottom:none;padding-top:14px;border-top:2px solid #e4e7ef}
+  .customer-price-row td{font-size:20px;font-weight:700;color:#C8963E;border:none}
+  .tag{display:inline-block;background:#ddf4ed;color:#0b6e4f;font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600}
+  .note-box{background:#fff8e7;border-left:3px solid #C8963E;border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;margin-bottom:10px;color:#854f0b;line-height:1.6}
+  .amenities{font-size:13px;color:#333;line-height:2}
+  .amenities li{list-style:none;padding-left:0}
+  .amenities li::before{content:"✓ ";color:#1D9E75;font-weight:700}
+  .cancel-box{background:#f8f5ff;border-left:3px solid #7c4dff;border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:#333;line-height:1.6}
+  .warning-box{background:#fff3cd;border-left:3px solid #e8a84c;border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:#856404;line-height:1.6}
+  .footer{background:#f8f9fa;padding:18px 28px;font-size:11px;color:#7a8099;border-top:1px solid #e4e7ef;line-height:1.8}
+  .drive-link{color:#1D3461;font-weight:600}
+  .print-btn{display:block;width:100%;padding:14px;background:#1D3461;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;font-family:inherit}
+  .print-btn:hover{background:#1a2a52}
+  @media print{
+    body{background:#fff}
+    .wrap{box-shadow:none;margin:0;border-radius:0}
+    .no-print{display:none!important}
+    .hotel-img{height:160px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div>
+      <div class="brand">✈ VNLUX TRAVEL</div>
+      <div class="brand-sub">Báo giá dịch vụ lưu trú</div>
+    </div>
+    <div class="ctv-info">
+      <div class="ctv-name">${ctvName}</div>
+      ${ctvPhone ? `<div class="ctv-phone">${ctvPhone}</div>` : ""}
+      <div class="quote-no">Ngày: ${today}</div>
+    </div>
+  </div>
+
+  ${quoteData.hotelImage
+    ? `<img class="hotel-img" src="${quoteData.hotelImage}" onerror="this.style.display='none'">`
+    : `<div class="hotel-img-placeholder">🏨</div>`}
+
+  <div class="body">
+
+    <!-- Thông tin khách sạn -->
+    <div class="section">
+      <div class="section-title">Khách sạn</div>
+      <div class="hotel-name">${quoteData.hotelName}</div>
+      <div class="hotel-area">📍 ${quoteData.hotelArea||""}</div>
+      ${quoteData.hotelDrive ? `<div style="margin-top:6px"><a class="drive-link" href="${quoteData.hotelDrive}" target="_blank">📷 Xem ảnh đầy đủ →</a></div>` : ""}
+    </div>
+
+    <!-- Chi tiết lưu trú -->
+    <div class="section">
+      <div class="section-title">Thông tin lưu trú</div>
+      <table>
+        <tr><td>Hạng phòng</td><td>${quoteData.roomName||quoteData.roomType}</td></tr>
+        <tr><td>Check-in</td><td>${fmtDateVi(quoteData.checkin)}</td></tr>
+        <tr><td>Check-out</td><td>${fmtDateVi(quoteData.checkout)}</td></tr>
+        <tr><td>Số đêm</td><td>${quoteData.nights} đêm</td></tr>
+        <tr><td>Người lớn</td><td>${quoteData.adults} người</td></tr>
+        ${quoteData.children>0 ? `<tr><td>Trẻ em (5-11t)</td><td>${quoteData.children} bé</td></tr>` : ""}
+        <tr><td>Số phòng</td><td>1 phòng</td></tr>
+        <tr><td>Trạng thái</td><td><span class="tag">Báo giá · Chưa giữ phòng</span></td></tr>
+      </table>
+    </div>
+
+    <!-- Bảng giá -->
+    <div class="section">
+      <div class="section-title">Bảng giá</div>
+      <table class="price-table">
+        <tr><td class="price-net">Giá phòng (net/đêm)</td><td class="price-net">${fmt(quoteData.netPerNight)}đ</td></tr>
+        ${markup>0 ? `<tr><td class="price-net">Lãi dịch vụ/đêm</td><td class="price-net">+${fmt(markup)}đ</td></tr>` : ""}
+        <tr><td>Giá báo/đêm</td><td><b>${fmt(quoteData.netPerNight+markup)}đ</b></td></tr>
+        ${totalMarkup>0 ? `<tr><td class="price-net">Tổng lãi (${quoteData.nights} đêm)</td><td class="price-net">+${fmt(totalMarkup)}đ</td></tr>` : ""}
+        <tr class="price-total-row"><td>Tổng tiền (${quoteData.nights} đêm)</td><td>${fmt(customerTotal)}đ</td></tr>
+        ${markup>0 ? `<tr class="customer-price-row"><td>Giá báo cho khách</td><td>${fmt(customerTotal)}đ ✓</td></tr>` : ""}
+      </table>
+    </div>
+
+    <!-- Cảnh báo nếu có -->
+    ${warnings ? `<div class="section"><div class="warning-box">${warnings}</div></div>` : ""}
+
+    <!-- Dịch vụ bao gồm -->
+    <div class="section">
+      <div class="section-title">Dịch vụ tại khách sạn</div>
+      <ul class="amenities">
+        <li>Hồ bơi & khu vực giải trí</li>
+        <li>Nhà hàng & Bar</li>
+        <li>Trung tâm Spa & Fitness</li>
+        <li>Bãi biển riêng (nếu có)</li>
+        <li>WiFi tốc độ cao toàn khu vực</li>
+        <li>Parking miễn phí</li>
+        <li>24/7 Concierge & Lễ tân</li>
+        ${note ? `<li>${note}</li>` : ""}
+      </ul>
+    </div>
+
+    <!-- Chính sách hủy -->
+    <div class="section">
+      <div class="section-title">Chính sách hoàn hủy</div>
+      <div class="cancel-box">${cancelDesc}</div>
+    </div>
+
+    <!-- Lưu ý quan trọng -->
+    <div class="section">
+      <div class="section-title">Lưu ý quan trọng</div>
+      <div class="note-box">
+        💡 Giá đã bao gồm thuế và phí dịch vụ theo quy định<br>
+        ⚠️ Đây là báo giá tham khảo — chưa giữ phòng<br>
+        📞 Vui lòng liên hệ CTV để xác nhận tình trạng phòng và đặt chỗ<br>
+        🕐 Giá có thể thay đổi tùy thời điểm xác nhận chính thức<br>
+        ${quoteData.hotelDrive ? `🖼️ Xem ảnh resort đầy đủ tại: <a href="${quoteData.hotelDrive}" target="_blank">${quoteData.hotelDrive}</a>` : ""}
       </div>
-      ${h.promo_name ? `<span class="dd-tag">CTKM</span>` : ""}
-    </div>`).join("");
-  dd.style.display = "block";
+    </div>
+
+    <button class="print-btn no-print" onclick="window.print()">🖨️ In báo giá</button>
+  </div>
+
+  <div class="footer">
+    <b>VNLUX TRAVEL</b> · Đối tác du lịch nghỉ dưỡng cao cấp miền Trung<br>
+    CTV phụ trách: <b>${ctvName}</b>${ctvPhone ? ` · ${ctvPhone}` : ""}<br>
+    Báo giá được tạo tự động từ VNLUX CTV Portal · ${today}
+  </div>
+</div>
+<script>
+  window.onload = function() { setTimeout(()=>window.print(), 500); }
+</script>
+</body>
+</html>`;
+
+  const w = window.open("","_blank","width=800,height=900,scrollbars=yes");
+  w.document.write(quoteHtml);
+  w.document.close();
 }
 
-// ── SECTION 7: SELECT HOTEL + LOAD ROOMS via API ─────────────────────
-async function selectHotel(id) {
-  STATE.hotel = HOTELS.find(h => h.id === id);
-  selHotel = STATE.hotel;
-  STATE.room = null; selRoom = null; STATE.rooms = [];
-
-  document.getElementById("hotelSearch").value    = STATE.hotel.name;
-  document.getElementById("dropdown").style.display = "none";
-
-  // Hotel banner (V3 logic preserved exactly)
-  const img = document.getElementById("hotelImg");
-  const ph  = document.getElementById("hotelImgPlaceholder");
-  if (STATE.hotel.image_url) {
-    img.src = STATE.hotel.image_url; img.classList.remove("hidden"); ph.style.display = "none";
-  } else {
-    img.classList.add("hidden"); ph.style.display = "flex";
-    ph.textContent = STATE.hotel.avatar || STATE.hotel.id;
-  }
-  document.getElementById("hName").textContent = STATE.hotel.name;
-  document.getElementById("hLoc").textContent  = STATE.hotel.loc;
-
-  let meta = "";
-  if (STATE.hotel.promo_name)
-    meta += `<span class="promo-pill">CTKM: ${STATE.hotel.promo_name} · đến ${fmtDate(STATE.hotel.promo_to)}</span>`;
-  if (STATE.hotel.drive_url)
-    meta += `<a class="drive-link" href="${STATE.hotel.drive_url}" target="_blank">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Xem ảnh đầy đủ (Drive)
-    </a>`;
-  document.getElementById("hotelMeta").innerHTML  = meta;
-  document.getElementById("hotelBanner").style.display = "block";
-
-  // Load rooms via API (NEW — replaces CSV rooms)
-  await refreshRooms();
-  document.getElementById("roomCard").classList.remove("hidden");
-  document.getElementById("dateCard").classList.remove("hidden");
-  checkBtn();
-}
-
-// Refresh room list with current dates (NEW)
-// Called on hotel select AND when dates change
-async function refreshRooms() {
-  if (!STATE.hotel) return;
-  document.getElementById("roomGrid").innerHTML =
-    `<div class="loading-bar" style="grid-column:1/-1"><div class="spin"></div><span>Đang tải hạng phòng…</span></div>`;
-
-  const body = { hotel_id: STATE.hotel.id };
-  const ci = document.getElementById("checkin").value;
-  const co = document.getElementById("checkout").value;
-  if (ci) body.checkin = ci;
-  if (co) body.checkout = co;
-
-  try {
-    const r = await apiCall("getPrice", body);
-    if (!r || !r.ok) throw new Error(r?.error || "getPrice failed");
-    STATE.rooms = r.rooms || [];
-    renderRooms();
-  } catch(e) {
-    document.getElementById("roomGrid").innerHTML =
-      `<div style="grid-column:1/-1;font-size:13px;color:#f09595;padding:8px">Lỗi tải phòng: ${e.message}</div>`;
-  }
-}
-
-// ── SECTION 8: RENDER ROOMS (V3 room-tag UI kept, new data binding) ───
-function renderRooms() {
-  // API: room_type, room_name, gia_ban
-  document.getElementById("roomGrid").innerHTML = STATE.rooms.map(r => `
-    <div class="room-tag" id="rt_${r.room_type}" onclick="selectRoom('${r.room_type}')">
-      <span class="rt-n">${r.room_name || r.room_type}</span>
-      <span class="rt-p">${fmt(r.gia_ban)}/đêm</span>
-    </div>`).join("");
-
-  // Re-select previously selected room if still available
-  if (STATE.room) {
-    const match = STATE.rooms.find(r => r.room_type === STATE.room.room_type);
-    if (match) {
-      STATE.room = match; selRoom = match;
-      const el = document.getElementById("rt_" + match.room_type);
-      if (el) el.classList.add("sel");
-    } else {
-      STATE.room = null; selRoom = null;
-    }
-  }
-  checkBtn();
-}
-
-// Select room (CHANGED: uses room_type instead of V3's id)
-function selectRoom(roomType) {
-  STATE.room = STATE.rooms.find(r => r.room_type === roomType);
-  selRoom    = STATE.room;
-  document.querySelectorAll(".room-tag").forEach(e => e.classList.remove("sel"));
-  const el = document.getElementById("rt_" + roomType);
-  if (el) el.classList.add("sel");
-  checkBtn();
-}
-
-// ── SECTION 9: DATES (CHANGED: refresh rooms on date change) ─────────
-function fmt(n)      { return Number(n).toLocaleString("vi-VN") + "đ"; }
-function fmtDate(s)  {
-  if (!s) return "";
-  const d = new Date(s + "T12:00:00");
-  return d.toLocaleDateString("vi-VN", { day:"2-digit", month:"2-digit", year:"numeric" });
-}
-
-async function calcNights() {
-  const ci = document.getElementById("checkin").value;
-  const co = document.getElementById("checkout").value;
-  if (ci && co) {
-    const d = Math.round((new Date(co) - new Date(ci)) / 86400000);
-    nights = d > 0 ? d : 0;
-    STATE.nights = nights; STATE.checkin = ci; STATE.checkout = co;
-    document.getElementById("nightsInfo").textContent =
-      nights > 0 ? nights + " đêm lưu trú" : "⚠ Check-out phải sau check-in";
-    // Refresh rooms with new dates → date-aware pricing (NEW)
-    if (nights > 0 && STATE.hotel) await refreshRooms();
-  }
-  checkBtn();
-}
-
-function checkBtn() {
-  const ci = document.getElementById("checkin").value;
-  const co = document.getElementById("checkout").value;
-  document.getElementById("btnPrice").disabled =
-    !(STATE.hotel && STATE.room && ci && co && nights > 0);
-}
-
-// ── SECTION 10: GO TO PRICE (CHANGED: calls getEnhancedPrice for breakdown) ──
-async function goToPrice() {
-  const ci = document.getElementById("checkin").value;
-  const co = document.getElementById("checkout").value;
-  const nr = parseInt(document.getElementById("numRooms").value) || 1;
-  const r  = STATE.room;
-  const h  = STATE.hotel;
-
-  // V3 step-2 headers (preserved)
-  document.getElementById("p2Title").textContent = h.name;
-  document.getElementById("p2Sub").textContent   = (r.room_name || r.room_type) + " · " + fmtDate(ci) + " → " + fmtDate(co);
-  document.getElementById("nPill").textContent   = nights + " đêm";
-  document.getElementById("stayInfo").textContent= h.area + " · " + nr + " phòng";
-
-  // Fetch detailed breakdown from API (NEW)
-  let pricing = null;
-  try {
-    const res = await apiCall("getEnhancedPrice", {
-      hotel_id:  h.id,
-      room_type: r.room_type,
-      checkin: ci, checkout: co,
-      nights: nights,
-      adults:   parseInt(document.getElementById("adults").value)   || 2,
-      children: parseInt(document.getElementById("children").value) || 0,
-      rooms: 1   // total = gia_ban_per_room × nights; multiply by nr in updateTotal
-    });
-    if (res && res.ok) pricing = res.pricing;
-  } catch(e) { console.warn("getEnhancedPrice:", e); }
-  STATE.priceData = pricing;
-
-  // Price-grid: card 1 = giá phòng theo giai đoạn (từ API)
-  // card 2 = chính sách hủy phòng
-  const giaBan   = pricing?.gia_ban_mac_dinh || r.gia_ban || 0;
-  const wkSur    = pricing?.weekend_surcharge || 0;
-  const isWk     = pricing?.is_weekend || false;
-  const cancelPol= pricing?.cancel_policy;
-  const minN     = r.min_nights || 0;
-
-  let ph = `<div class="pc sel" id="pc_contract" onclick="selPrice('contract')">
-    <div class="pc-type">Giá ${isWk ? "cuối tuần" : "trong tuần"}</div>
-    <div class="pc-amt">${fmt(giaBan)}</div>
-    <div class="pc-note">/ phòng / đêm</div>
-    ${isWk && wkSur > 0 ? `<div class="pc-badge">inc. CK +${fmt(wkSur)}</div>` : ""}
-  </div>`;
-
-  ph += `<div class="pc" style="cursor:default;${minN > 0 && nights < minN ? 'border-color:rgba(232,168,76,.4);background:rgba(232,168,76,.06)' : 'opacity:.55'}">
-    <div class="pc-type">Chính sách hủy</div>
-    <div class="pc-amt" style="font-size:17px;margin-top:5px;line-height:1.35">${cancelPol?.name_vi || "Linh hoạt"}</div>
-    <div class="pc-note">${minN > 0 ? (nights < minN ? "⚠ Min " + minN + " đêm" : "✓ Min " + minN + " đêm đáp ứng") : "Không giới hạn số đêm"}</div>
-  </div>`;
-  document.getElementById("priceGrid").innerHTML = ph;
-
-  // Extras (V3 extras-box UI preserved, NEW data from API)
-  let ex = "";
-  const warnings = pricing?.warnings || [];
-  if (warnings.length)
-    warnings.forEach(w =>
-      ex += `<div class="ex-row"><span class="ex-lbl" style="color:var(--warn)">${w}</span></div>`);
-
-  const childSur = r.child_surcharge || 500000;
-  ex += `<div class="ex-row"><span class="ex-lbl">Trẻ em 6–12 ngủ chung giường</span><span class="ex-val" style="color:var(--muted)">${fmt(childSur)}/bé/đêm</span></div>`;
-  ex += `<div class="ex-row"><span class="ex-lbl">Giường phụ người lớn</span><span class="ex-val" style="color:var(--muted)">1.000.000đ/đêm</span></div>`;
-  document.getElementById("extrasBox").innerHTML = ex;
-
-  selPriceType = "contract"; STATE.selPriceType = "contract";
-  updateTotal();
-  goStep(2);
-}
-
-function selPrice(type) {
-  selPriceType = type; STATE.selPriceType = type;
-  document.querySelectorAll(".pc").forEach(e => e.classList.remove("sel"));
-  const el = document.getElementById("pc_" + type);
-  if (el) el.classList.add("sel");
-  updateTotal();
-}
-
-function updateTotal() {
-  if (!STATE.room) return;
-  const nr = parseInt(document.getElementById("numRooms").value) || 1;
-  // total_per_night từ API = giá/phòng/đêm (đã tính weekend, meal, child)
-  // Multiply by nr rooms and nights manually
-  const perRoomPerNight = STATE.priceData?.total_per_night || STATE.room.gia_ban || 0;
-  const total = perRoomPerNight * nights * nr;
-  document.getElementById("totalAmt").textContent  = fmt(total);
-  document.getElementById("totalNote").textContent = "Giá net · " + nights + " đêm · " + nr + " phòng · chưa VAT";
-  document.getElementById("cfTotal").textContent   = fmt(total);
-  STATE.total = total;
-}
-
-// ── SECTION 11: SUBMIT BOOKING via API (CHANGED) ─────────────────────
-async function submitBooking() {
-  const name  = document.getElementById("guestName").value.trim();
-  const phone = document.getElementById("guestPhone").value.trim();
-  if (!name)  { alert("Vui lòng nhập tên khách."); return; }
-  if (!phone) { alert("Vui lòng nhập số điện thoại."); return; }
-  if (!STATE.token) { showLogin(); return; }
-
-  const nr       = parseInt(document.getElementById("numRooms").value) || 1;
-  const adults   = parseInt(document.getElementById("adults").value)   || 2;
-  const children = parseInt(document.getElementById("children").value) || 0;
-  const special  = document.getElementById("special").value;
-  const ctvCode  = (document.getElementById("ctvCode").value.trim() || STATE.ctv?.ctv_id || "").toUpperCase();
-  const btn      = document.querySelector(".btn-book");
-  btn.textContent = "⏳ Đang gửi yêu cầu…"; btn.disabled = true;
-
-  try {
-    const r = await apiCall("createBooking", {
-      hotel_id:         STATE.hotel.id,
-      room_type:        STATE.room.room_type,
-      checkin:          document.getElementById("checkin").value,
-      checkout:         document.getElementById("checkout").value,
-      guest_name:       name,
-      guest_phone:      phone,
-      so_luong:         nr,
-      nguoi_lon:        adults,
-      tre_em:           children,
-      yeu_cau_dac_biet: special,
-      nguon_booking:    "CTV_PORTAL",
-      note:             ctvCode ? "CTV: " + ctvCode : ""
-    });
-
-    if (r && r.ok) {
-      // Show step 4 confirmation (V3 UI preserved)
-      document.getElementById("bkCode").textContent  = r.booking_id || r.ma_code || "VNL" + Date.now().toString().slice(-6);
-      document.getElementById("cfHotel").textContent = STATE.hotel.name;
-      document.getElementById("cfRoom").textContent  = STATE.room.room_name || STATE.room.room_type;
-      document.getElementById("cfGuest").textContent = name + " · " + phone;
-      document.getElementById("cfCI").textContent    = fmtDate(document.getElementById("checkin").value);
-      document.getElementById("cfCO").textContent    = fmtDate(document.getElementById("checkout").value);
-      document.getElementById("cfRooms").textContent = nr + " phòng";
-      if (ctvCode) document.getElementById("ctvBadge").textContent = ctvCode;
-      goStep(4);
-    } else {
-      alert("❌ " + (r?.error || "Lỗi tạo booking. Thử lại sau."));
-    }
-  } catch(e) {
-    alert("Lỗi kết nối API: " + e.message);
-  }
-  btn.textContent = "Gửi yêu cầu đặt phòng"; btn.disabled = false;
-}
-
-// ── SECTION 12: NAVIGATION (V3 logic preserved exactly) ─────────────
-function goStep(n) {
-  [1,2,3,4].forEach(i => {
-    document.getElementById("step"+i).classList.toggle("hidden", i !== n);
-    const s  = document.getElementById("s"+i);
-    s.classList.remove("active","done");
-    if (i === n) s.classList.add("active");
-    else if (i < n) s.classList.add("done");
-    const sn = document.getElementById("sn"+i);
-    if (i < n) sn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    else sn.textContent = i;
+// Cập nhật loadHotelDropdowns: điền vào b-hotel dropdown (booking form)
+function loadHotelDropdowns() {
+  ["b-hotel"].forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">-- Chọn khách sạn --</option>' +
+      hotels.map(h=>`<option value="${h.hotel_id}">${h.name||h.name_display||h.hotel_id}</option>`).join("");
+    if (cur) sel.value = cur;
   });
 }
 
-function resetPortal() {
-  STATE.hotel = null; STATE.room = null; STATE.rooms = [];
-  STATE.checkin = null; STATE.checkout = null; STATE.nights = 0;
-  STATE.total = 0; STATE.priceData = null;
-  selHotel = null; selRoom = null; selPriceType = "contract"; nights = 0;
-  ["hotelSearch","checkin","checkout","guestName","guestPhone","special"].forEach(
-    id => document.getElementById(id).value = "");
-  document.getElementById("hotelBanner").style.display = "none";
-  document.getElementById("roomCard").classList.add("hidden");
-  document.getElementById("dateCard").classList.add("hidden");
-  document.getElementById("nightsInfo").textContent = "";
-  document.getElementById("btnPrice").disabled = true;
-  goStep(1);
-}
+// Lưu thêm thông tin vào lastPrice khi check giá (để quote dùng)
 
-// ── SECTION 13: CHATBOX (V3 preserved, sys prompt uses API data) ──────
-let chatOpen = false, chatHistory = [];
-
-function buildSysPrompt() {
-  const summary = HOTELS.slice(0, 20).map(h => {
-    const rooms = (STATE.hotel?.id === h.id ? STATE.rooms : [])
-      .slice(0, 8).map(r => `  - ${r.room_name || r.room_type}: ${fmt(r.gia_ban)}/đêm`).join("\n");
-    return `${h.name} (${h.area}):\n${rooms || "  (chọn KS để xem giá phòng)"}`; 
-  }).join("\n\n");
-  return `Bạn là trợ lý AI của VNLUX TRAVEL — công ty B2B chuyên resort 5 sao miền Trung Việt Nam.
-Chính sách: trẻ em 6-12 ngủ chung 500k/bé/đêm, giường phụ 1tr/đêm, sale xác nhận 2h làm việc.
-Khách sạn đang hoạt động (${HOTELS.length} resort):\n${summary}\nTrả lời ngắn gọn, thân thiện, tiếng Việt.`;
-}
-
-function toggleChat() {
-  chatOpen = !chatOpen;
-  document.getElementById("chatBox").classList.toggle("open", chatOpen);
-  if (chatOpen) document.getElementById("chatInput").focus();
-}
-
-function quickAsk(q) {
-  document.getElementById("chatInput").value = q;
-  document.getElementById("qbtns").style.display = "none";
-  sendChat();
-}
-
-function appendMsg(role, text) {
-  const el = document.createElement("div");
-  el.className = "msg " + (role === "user" ? "user" : "bot");
-  el.textContent = text;
-  const msgs = document.getElementById("chatMsgs");
-  msgs.appendChild(el); msgs.scrollTop = msgs.scrollHeight;
-  return el;
-}
-
-async function sendChat() {
-  const input = document.getElementById("chatInput");
-  const q = input.value.trim(); if (!q) return;
-  input.value = "";
-  document.getElementById("qbtns").style.display = "none";
-  appendMsg("user", q);
-  chatHistory.push({ role: "user", content: q });
-  const typing = appendMsg("bot", "…");
-  typing.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-  try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": CLAUDE_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true"
-      },
-      body: JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:500,
-        system: buildSysPrompt(), messages: chatHistory })
-    });
-    const data = await res.json();
-    typing.remove();
-    const reply = data.content?.[0]?.text || "Không lấy được thông tin. Thử lại nhé.";
-    appendMsg("bot", reply);
-    chatHistory.push({ role: "assistant", content: reply });
-    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-16);
-  } catch(e) {
-    typing.remove();
-    appendMsg("bot", "Chưa kết nối được trợ lý AI. Điền CLAUDE_API_KEY để kích hoạt.");
-  }
-}
-
-// ── SECTION 14: INIT ──────────────────────────────────────────────────
-const today = new Date().toISOString().split("T")[0];
-document.getElementById("checkin").min  = today;
-document.getElementById("checkout").min = today;
-
-document.addEventListener("click", e => {
-  if (!e.target.closest(".search-wrap") && !e.target.closest("#dropdown"))
-    document.getElementById("dropdown").style.display = "none";
-});
-
-// Pre-fill CTV badge + code if already logged in
-if (STATE.ctv) {
-  updateCtvBadge();
-  document.getElementById("ctvCode").value = STATE.ctv.ctv_id || "";
-}
-
-// Show login or load hotels
-if (STATE.token) {
-  loadHotels();
-} else {
-  showLogin();
-}
+// ══════════════════════════════════════════════════
+// AUTO LOGIN
+// ══════════════════════════════════════════════════
+if (token && user) { onLoggedIn(); }
 </script>
 </body>
 </html>
