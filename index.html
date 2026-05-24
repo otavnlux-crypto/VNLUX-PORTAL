@@ -106,32 +106,36 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .room-card-price{font-size:14px;font-weight:700;color:var(--navy)}
 .room-card-sub{font-size:10px;color:var(--muted);margin-top:2px}
 
-/* ── QUOTE SCREEN ─────────────────────────────────────── */
-.quote-summary{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:14px}
-.qs-hotel{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px}
-.qs-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:.5px solid var(--border)}
-.qs-row:last-child{border-bottom:none}
-.qs-lbl{color:var(--muted)}
-.qs-val{font-weight:500}
-.markup-box{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:16px;margin-bottom:14px}
-.markup-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
-.markup-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px}
-.markup-lbl{color:var(--text)}
-.markup-price{font-weight:700;color:var(--navy)}
-.markup-inp-wrap{display:flex;align-items:center;gap:6px}
-.markup-inp{width:140px;text-align:right;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:14px;font-family:var(--font);color:var(--text);outline:none}
+/* ── MARKUP + QUOTE ─────────── */
+.markup-wrap{background:#f8f9ff;border:1.5px solid var(--border);border-radius:12px;padding:14px;margin-top:14px}
+.markup-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.markup-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:13px}
+.markup-adj{display:flex;align-items:center;gap:6px}
+.adj-btn{width:30px;height:30px;border:1.5px solid var(--border);border-radius:8px;background:var(--card);cursor:pointer;font-size:16px;font-weight:700;color:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.adj-btn:active{background:#eef4fb}
+.markup-inp{width:110px;text-align:center;border:1.5px solid var(--border);border-radius:8px;padding:6px 8px;font-size:13px;font-family:var(--font);background:var(--card);outline:none}
 .markup-inp:focus{border-color:var(--navy)}
-.customer-price{background:var(--navy);border-radius:12px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:4px}
-.cp-lbl{color:rgba(255,255,255,.7);font-size:13px}
-.cp-amt{color:#fff;font-size:22px;font-weight:700}
-.btn-quote{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:12px;padding:15px;color:#fff;font-size:15px;font-weight:700;font-family:var(--font);cursor:pointer;margin-top:4px}
-.btn-quote:active{opacity:.9}
-.no-selection{text-align:center;padding:40px 20px}
-.no-sel-icon{font-size:40px;margin-bottom:12px}
-.no-sel-text{font-size:14px;color:var(--muted);margin-bottom:16px}
-/* nav 5 items */
+.customer-bar{background:var(--navy);border-radius:10px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.cbar-lbl{color:rgba(255,255,255,.7);font-size:12px}
+.cbar-amt{color:#fff;font-size:18px;font-weight:700}
+.cbar-sub{color:rgba(255,255,255,.5);font-size:10px;margin-top:2px}
+.btn-2col{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:10px;padding:13px;color:#fff;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer}
+.btn-gold:active{opacity:.9}
+/* ── INVENTORY ────────────────── */
+.inv-pill{display:inline-flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.hol-btn{font-size:12px;padding:5px 12px;border-radius:99px;border:1.5px solid var(--border);background:var(--card);cursor:pointer;transition:.15s;font-family:var(--font);color:var(--text)}
+.hol-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.inv-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:10px}
+.inv-hotel{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.inv-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:.5px solid var(--border);font-size:12px}
+.inv-row:last-child{border-bottom:none}
+.inv-room{color:var(--text);font-weight:500}
+.inv-price{color:var(--navy);font-weight:700}
+.inv-badge{font-size:10px;padding:2px 7px;border-radius:99px;background:#fff3cd;color:#856404;margin-left:6px}
+/* ── NAV 5 ITEMS ──────────────── */
 .bottom-nav .nav-label{font-size:9px}
-.bottom-nav .nav-icon{font-size:18px}
+.bottom-nav .nav-icon{font-size:17px}
 </style>
 </head>
 <body>
@@ -163,11 +167,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
       <div class="stat-card"><div class="stat-val gold" id="stat-debt">—</div><div class="stat-lbl">Còn phải thu</div></div>
     </div>
   </div>
-  <div class="quick-grid" style="grid-template-columns:1fr 1fr;gap:10px;padding:16px">
+  <div class="quick-grid" style="grid-template-columns:1fr 1fr">
     <div class="quick-btn" onclick="navTo('s-price')"><div class="quick-icon">💰</div><div class="quick-label">Tra giá</div></div>
     <div class="quick-btn" onclick="navTo('s-quote')"><div class="quick-icon">📄</div><div class="quick-label">Báo giá</div></div>
     <div class="quick-btn" onclick="navTo('s-booking')"><div class="quick-icon">📝</div><div class="quick-label">Tạo booking</div></div>
-    <div class="quick-btn" onclick="navTo('s-list')"><div class="quick-icon">📋</div><div class="quick-label">Xem booking</div></div>
+    <div class="quick-btn" onclick="navTo('s-inv')"><div class="quick-icon">🏨</div><div class="quick-label">Quỹ phòng</div></div>
   </div>
   <div class="section"><div class="section-title">Booking gần đây</div><div id="recent-list"><div class="loading">⏳ Đang tải...</div></div></div>
 </div>
@@ -176,7 +180,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   <div class="nav-item" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
   <div class="nav-item" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
   <div class="nav-item" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
-  <div class="nav-item" onclick="navTo('s-list',this)"><span class="nav-icon">📋</span><span class="nav-label">Booking</span></div>
+  <div class="nav-item" onclick="navTo('s-inv',this)"><span class="nav-icon">🏨</span><span class="nav-label">Quỹ phòng</span></div>
 </nav>
 </div>
 
@@ -226,7 +230,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   <div class="nav-item active" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
   <div class="nav-item" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
   <div class="nav-item" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
-  <div class="nav-item" onclick="navTo('s-list',this)"><span class="nav-icon">📋</span><span class="nav-label">Booking</span></div>
+  <div class="nav-item" onclick="navTo('s-inv',this)"><span class="nav-icon">🏨</span><span class="nav-label">Quỹ phòng</span></div>
 </nav>
 </div>
 
@@ -235,8 +239,20 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   <div style="display:flex;align-items:center;gap:10px"><button class="header-back" onclick="navTo('s-home')">←</button><div class="header-title">Tạo booking mới</div></div>
 </div>
 <div class="form-body">
-  <div class="field"><label class="field-label">Khách sạn</label><select class="field-inp" id="b-hotel" onchange="updateRoomList(this.value,'b-room')"><option value="">-- Chọn khách sạn --</option></select></div>
-  <div class="field"><label class="field-label">Loại phòng</label><select class="field-inp" id="b-room"><option value="">-- Chọn khách sạn trước --</option></select></div>
+  <div class="field">
+    <label class="field-label">🏨 Khách sạn</label>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="b-hotel-search" placeholder="Gõ tên: KOI, Radisson, Memories..."
+        oninput="onBkHotelSearch(this.value)" autocomplete="off">
+      <div class="search-drop" id="b-hotel-drop"></div>
+    </div>
+    <input type="hidden" id="b-hotel">
+  </div>
+  <div class="field">
+    <label class="field-label">Loại phòng</label>
+    <select class="field-inp" id="b-room"><option value="">-- Chọn khách sạn trước --</option></select>
+  </div>
   <div class="field-row">
     <div class="field"><label class="field-label">Check-in</label><input type="date" class="field-inp" id="b-ci"></div>
     <div class="field"><label class="field-label">Check-out</label><input type="date" class="field-inp" id="b-co"></div>
@@ -255,7 +271,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   <div class="nav-item" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
   <div class="nav-item" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
   <div class="nav-item active" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
-  <div class="nav-item" onclick="navTo('s-list',this)"><span class="nav-icon">📋</span><span class="nav-label">Booking</span></div>
+  <div class="nav-item" onclick="navTo('s-inv',this)"><span class="nav-icon">🏨</span><span class="nav-label">Quỹ phòng</span></div>
 </nav>
 </div>
 
@@ -269,12 +285,12 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   <div class="nav-item" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
   <div class="nav-item" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
   <div class="nav-item" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
-  <div class="nav-item active" onclick="navTo('s-list',this)"><span class="nav-icon">📋</span><span class="nav-label">Booking</span></div>
+  <div class="nav-item active" onclick="navTo('s-inv',this)"><span class="nav-icon">🏨</span><span class="nav-label">Quỹ phòng</span></div>
 </nav>
 </div>
 
 
-<!-- ═══ SCREEN: BÁO GIÁ (NEW) ═══ -->
+<!-- ═══ SCREEN: BÁO GIÁ ═══ -->
 <div class="screen" id="s-quote">
 <div class="header">
   <div style="display:flex;align-items:center;gap:10px">
@@ -282,74 +298,52 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
     <div class="header-title">Tạo báo giá</div>
   </div>
 </div>
-<div class="form-body" id="quote-body" style="padding:12px 12px 90px">
-
-  <!-- Hiện khi chưa có giá nào được tra -->
-  <div id="quote-no-sel" class="no-selection">
-    <div class="no-sel-icon">📋</div>
-    <div class="no-sel-text">Hãy tra giá phòng trước,<br>sau đó bấm "Tạo báo giá" để tạo file</div>
+<div class="form-body" style="padding:12px 12px 90px">
+  <div id="quote-empty" style="text-align:center;padding:50px 20px">
+    <div style="font-size:40px;margin-bottom:12px">📋</div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:16px">Tra giá phòng trước,<br>rồi bấm "Tạo báo giá" tại kết quả</div>
     <button class="btn-primary" onclick="navTo('s-price')">💰 Tra giá ngay</button>
   </div>
-
-  <!-- Hiện khi đã có giá -->
-  <div id="quote-has-sel" style="display:none">
-
-    <!-- Tóm tắt thông tin -->
-    <div class="quote-summary">
-      <div class="qs-hotel" id="q-hotel-name">—</div>
-      <div class="qs-row"><span class="qs-lbl">Hạng phòng</span><span class="qs-val" id="q-room-name">—</span></div>
-      <div class="qs-row"><span class="qs-lbl">Check-in</span><span class="qs-val" id="q-ci">—</span></div>
-      <div class="qs-row"><span class="qs-lbl">Check-out</span><span class="qs-val" id="q-co">—</span></div>
-      <div class="qs-row"><span class="qs-lbl">Số đêm</span><span class="qs-val" id="q-nights">—</span></div>
-      <div class="qs-row"><span class="qs-lbl">Khách</span><span class="qs-val" id="q-guests">—</span></div>
+  <div id="quote-content" style="display:none">
+    <div class="quote-summary" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:14px">
+      <div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px" id="q-hotel"></div>
+      <div style="font-size:13px;color:var(--muted)" id="q-detail"></div>
     </div>
-
-    <!-- Thông tin CTV -->
-    <div class="markup-box">
-      <div class="markup-title">Thông tin CTV (hiện trên báo giá)</div>
-      <div class="field-row" style="margin-bottom:10px">
-        <div class="field">
-          <label class="field-label">Tên CTV</label>
-          <input class="field-inp" id="q-ctv-name" placeholder="Nguyễn Văn A">
-        </div>
-        <div class="field">
-          <label class="field-label">SĐT CTV</label>
-          <input class="field-inp" id="q-ctv-phone" placeholder="0901234567" type="tel">
-        </div>
+    <div class="markup-wrap">
+      <div class="markup-title">Thông tin CTV (in trên báo giá)</div>
+      <div class="field-row" style="margin-bottom:12px">
+        <div class="field"><label class="field-label">Tên CTV</label><input class="field-inp" id="q-ctv-name" placeholder="Nguyễn Văn A"></div>
+        <div class="field"><label class="field-label">SĐT CTV</label><input class="field-inp" id="q-ctv-phone" placeholder="0901234567" type="tel"></div>
       </div>
-    </div>
-
-    <!-- Tính giá báo -->
-    <div class="markup-box">
-      <div class="markup-title">Tính giá báo cho khách</div>
+      <div class="markup-title" style="margin-top:8px">Tính giá báo cho khách</div>
       <div class="markup-row">
-        <span class="markup-lbl">Giá net (giá vốn)</span>
-        <span class="markup-price" id="q-net-price">0đ</span>
-      </div>
-      <div class="markup-row" style="align-items:center">
-        <span class="markup-lbl">Lãi CTV muốn cộng thêm</span>
-        <div class="markup-inp-wrap">
-          <input class="markup-inp" id="q-markup" type="number" min="0" step="50000"
-            placeholder="0" oninput="calcQuotePrice()">đ
-        </div>
+        <span style="color:var(--muted)">Giá net/đêm</span>
+        <span style="font-weight:700" id="q-net-night">—</span>
       </div>
       <div class="markup-row">
-        <span class="markup-lbl">Tổng lãi (tất cả đêm)</span>
-        <span class="markup-price" id="q-total-markup" style="color:var(--teal)">0đ</span>
+        <span>Lãi CTV/đêm</span>
+        <div class="markup-adj">
+          <button class="adj-btn" onclick="adjMarkup(-50000)">−</button>
+          <input class="markup-inp" id="q-markup" type="text" value="0" oninput="onMarkupInput(this.value)" placeholder="0">
+          <button class="adj-btn" onclick="adjMarkup(50000)">+</button>
+        </div>
       </div>
-      <div class="customer-price">
-        <span class="cp-lbl">Giá báo cho khách</span>
-        <span class="cp-amt" id="q-customer-price">0đ</span>
+      <div class="customer-bar">
+        <div>
+          <div class="cbar-lbl">Giá báo cho khách</div>
+          <div class="cbar-sub" id="q-per-night-sub"></div>
+        </div>
+        <div style="text-align:right">
+          <div class="cbar-amt" id="q-customer-total">—</div>
+          <div class="cbar-sub" id="q-nights-sub"></div>
+        </div>
       </div>
     </div>
-
-    <!-- Ghi chú thêm -->
-    <div class="field" style="margin-bottom:14px">
+    <div class="field" style="margin-top:12px">
       <label class="field-label">Ghi chú thêm (tùy chọn)</label>
-      <input class="field-inp" id="q-note" placeholder="VD: Bao gồm bữa sáng, đón sân bay...">
+      <input class="field-inp" id="q-note" placeholder="Bao gồm bữa sáng, đưa đón sân bay...">
     </div>
-
-    <button class="btn-quote" onclick="generateQuote()">📄 Tạo & In báo giá</button>
+    <button class="btn-gold" style="width:100%;margin-top:14px;padding:14px;font-size:15px" onclick="generateQuote()">📄 Tạo & In báo giá</button>
   </div>
 </div>
 <nav class="bottom-nav">
@@ -357,10 +351,31 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   <div class="nav-item" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
   <div class="nav-item active" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
   <div class="nav-item" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
-  <div class="nav-item" onclick="navTo('s-list',this)"><span class="nav-icon">📋</span><span class="nav-label">Booking</span></div>
+  <div class="nav-item" onclick="navTo('s-inv',this)"><span class="nav-icon">🏨</span><span class="nav-label">Quỹ phòng</span></div>
 </nav>
 </div>
 
+<!-- ═══ SCREEN: QUỸ PHÒNG ═══ -->
+<div class="screen" id="s-inv">
+<div class="header">
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="header-back" onclick="navTo('s-home')">←</button>
+    <div class="header-title">Quỹ phòng & giá đặc biệt</div>
+  </div>
+</div>
+<div class="form-body" style="padding:12px 12px 90px">
+  <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Giá hợp đồng theo mùa lễ & ngày đặc biệt. Bấm kỳ để xem.</div>
+  <div class="inv-pill" id="inv-pills"></div>
+  <div id="inv-list"><div class="loading">Chọn kỳ để xem giá</div></div>
+</div>
+<nav class="bottom-nav">
+  <div class="nav-item" onclick="navTo('s-home',this)"><span class="nav-icon">🏠</span><span class="nav-label">Trang chủ</span></div>
+  <div class="nav-item" onclick="navTo('s-price',this)"><span class="nav-icon">💰</span><span class="nav-label">Tra giá</span></div>
+  <div class="nav-item" onclick="navTo('s-quote',this)"><span class="nav-icon">📄</span><span class="nav-label">Báo giá</span></div>
+  <div class="nav-item" onclick="navTo('s-booking',this)"><span class="nav-icon">➕</span><span class="nav-label">Tạo BK</span></div>
+  <div class="nav-item active" onclick="navTo('s-inv',this)"><span class="nav-icon">🏨</span><span class="nav-label">Quỹ phòng</span></div>
+</nav>
+</div>
 
 </div>
 <script>
@@ -406,8 +421,9 @@ function navTo(id, el) {
   if (id==="s-home")    loadDashboard();
   if (id==="s-list")    loadBookings();
   if (id==="s-price")   initDates("p-ci","p-co");
-  if (id==="s-booking") { initDates("b-ci","b-co"); loadHotelDropdowns(); }
-  if (id==="s-quote")   refreshQuoteScreen();
+  if (id==="s-booking") initDates("b-ci","b-co");
+  if (id==="s-quote")   { /* handled by override below */ }
+  if (id==="s-inv")     { /* handled by override below */ }
 }
 
 // ══════════════════════════════════════════════════
@@ -571,7 +587,11 @@ async function onHotelChange(hotelId) {
   } catch(e) { cardsDiv.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--red)">❌ Lỗi tải phòng</div>'; }
 }
 
-// [removed duplicate selectRoomCard - using version above]
+function selectRoomCard(el, roomType) {
+  document.querySelectorAll(".room-card").forEach(c=>c.classList.remove("selected"));
+  el.classList.add("selected");
+  document.getElementById("p-room").value = roomType;
+}
 
 async function updateRoomList(hotelId, targetId) {
   const sel = document.getElementById(targetId);
@@ -597,7 +617,7 @@ async function loadDashboard() {
   try {
     const r = await api("getMyBookings");
     if (!r||!r.ok) return;
-    const bks = r.bookings||r.data||[];
+    const bks = r.data||[];
     const active = bks.filter(b=>!["CLOSED","CANCELLED"].includes(b.trang_thai)).length;
     const debt   = bks.reduce((s,b)=>s+(Number(b.con_phai_thu)||0),0);
     document.getElementById("stat-bk").textContent   = active;
@@ -617,7 +637,7 @@ async function loadBookings() {
   try {
     const r = await api("getMyBookings");
     if (!r||!r.ok) throw new Error(r?.error||"Lỗi API");
-    const bks = r.bookings||r.data||[];
+    const bks = r.data||[];
     document.getElementById("booking-list").innerHTML = bks.length
       ? bks.map(bkCard).join("")
       : '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Chưa có booking nào</div></div>';
@@ -657,29 +677,40 @@ async function doCheckPrice() {
     const r = await api("getEnhancedPrice",{hotel_id,room_type,checkin,checkout,adults,children,nights,rooms:1});
     if (!r||!r.ok) throw new Error(r?.error||"Không tìm thấy giá");
     const p = r.pricing||{};
-    const hotelObj = hotels.find(h=>h.hotel_id===hotel_id)||{};
-    lastPrice = {
-      hotel_id, room_type, checkin, checkout, adults, children,
-      roomName: p.room_name||room_type,
-      priceResult: p,
-      hotelName: hotelObj.name||hotelObj.name_display||hotel_id,
-      hotelImage: hotelObj.image_url||"",
-      hotelDrive: hotelObj.drive_url||"",
-      hotelArea: hotelObj.area||""
-    };
+    lastPrice = {hotel_id,room_type,checkin,checkout,adults,children};
     const bdRows = (p.breakdown||[]).filter(b=>b.amount>0).map(b=>`<div class="price-row"><span>${b.label}</span><span style="font-weight:600">${fmt(b.amount)}đ</span></div>`).join("");
     const warns  = (p.warnings||[]).map(w=>`<div class="price-warning">${w}</div>`).join("");
     document.getElementById("price-result").innerHTML=`
       <div class="price-result">
-        <div class="price-hotel">${hotelObj.name||hotelObj.name_display||hotel_id}</div>
+        <div class="price-hotel">${hotel_id}</div>
         <div class="price-room">${p.room_name||room_type} · ${nights} đêm</div>
         ${bdRows}
         <div class="price-total-row"><span class="price-total-lbl">Tổng ${nights} đêm</span><span class="price-total-val">${fmt(p.grand_total)}đ</span></div>
         ${warns}
         ${p.cancel_policy?`<div class="price-warning">📋 ${p.cancel_policy.name_vi}: ${p.cancel_policy.description}</div>`:""}
-        <div style="display:flex;gap:8px;margin-top:14px">
-          <button class="btn-primary btn-teal" style="flex:1" onclick="goBookFromPrice()">📝 Đặt phòng</button>
-          <button class="btn-primary" style="flex:1;background:var(--gold)" onclick="goToQuote()">📄 Báo giá</button>
+        <div class="btn-2col" style="margin-top:14px">
+          <button class="btn-primary btn-teal" onclick="goBookFromPrice()">📝 Đặt phòng</button>
+          <button class="btn-gold" onclick="goToQuote()">📄 Báo giá</button>
+        </div>
+        <!-- MARKUP BOX hiện ngay dưới giá -->
+        <div class="markup-wrap" id="inline-markup" style="display:none">
+          <div class="markup-title">Tính giá báo nhanh cho khách</div>
+          <div class="markup-row">
+            <span style="color:var(--muted);font-size:12px">Giá net/đêm</span>
+            <span style="font-weight:700;font-size:13px" id="im-net">—</span>
+          </div>
+          <div class="markup-row">
+            <span style="font-size:13px">Lãi CTV/đêm</span>
+            <div class="markup-adj">
+              <button class="adj-btn" onclick="adjInlineMarkup(-50000)">−</button>
+              <input class="markup-inp" id="im-markup" type="text" value="0" oninput="onInlineMarkup(this.value)">
+              <button class="adj-btn" onclick="adjInlineMarkup(50000)">+</button>
+            </div>
+          </div>
+          <div class="customer-bar">
+            <div><div class="cbar-lbl">Giá báo cho khách</div><div class="cbar-sub" id="im-sub"></div></div>
+            <div><div class="cbar-amt" id="im-total">—</div></div>
+          </div>
         </div>
       </div>`;
   } catch(e) { document.getElementById("price-result").innerHTML='<div class="loading">❌ '+e.message+'</div>'; }
@@ -687,18 +718,11 @@ async function doCheckPrice() {
 
 function goBookFromPrice() {
   if (lastPrice) {
-    // Pre-fill hotel dropdown
     document.getElementById("b-hotel").value = lastPrice.hotel_id;
-    // Pre-fill dates
-    document.getElementById("b-ci").value  = lastPrice.checkin;
-    document.getElementById("b-co").value  = lastPrice.checkout;
-    // Pre-fill adults/children
-    if (lastPrice.adults)   document.getElementById("b-adults").value = lastPrice.adults;
-    if (lastPrice.children !== undefined) document.getElementById("b-kids").value = lastPrice.children;
-    // Load room list then select the room
-    updateRoomList(lastPrice.hotel_id,"b-room").then(()=>{
-      document.getElementById("b-room").value = lastPrice.room_type;
-    });
+    updateRoomList(lastPrice.hotel_id,"b-room");
+    setTimeout(()=>{ document.getElementById("b-room").value=lastPrice.room_type; },100);
+    document.getElementById("b-ci").value = lastPrice.checkin;
+    document.getElementById("b-co").value = lastPrice.checkout;
   }
   navTo("s-booking");
 }
@@ -752,275 +776,401 @@ function initDates(ci,co) {
 
 
 // ══════════════════════════════════════════════════
-// QUOTE STATE + FUNCTIONS
+// QUOTE STATE
 // ══════════════════════════════════════════════════
-let quoteData = null; // {hotel_id, hotelName, roomType, roomName, checkin, checkout, nights, adults, children, netPrice, priceData}
+let _quoteData = null; // lưu data từ lần check giá gần nhất
+let _inlineMarkup = 0; // markup inline trong màn tra giá
 
-function goToQuote() {
-  // Lấy dữ liệu từ màn hình tra giá
-  if (!lastPrice) { alert("Hãy tra giá phòng trước!"); return; }
-  const hotelId   = document.getElementById("p-hotel").value;
-  const roomType  = document.getElementById("p-room").value;
-  const checkin   = document.getElementById("p-ci").value;
-  const checkout  = document.getElementById("p-co").value;
-  const adults    = +document.getElementById("p-adults").value;
-  const children  = +document.getElementById("p-kids").value;
-  const nights    = Math.round((new Date(checkout)-new Date(checkin))/86400000);
-  const hotel     = hotels.find(h=>h.hotel_id===hotelId)||{};
-  // Lấy giá từ price-result nếu có
-  const priceEl   = document.getElementById("price-result");
-  const totalEl   = priceEl.querySelector(".price-total-val");
-  const netTotal  = totalEl ? parseInt(totalEl.textContent.replace(/\D/g,"")) : 0;
-  const netPerNight = nights > 0 ? Math.round(netTotal/nights) : 0;
-
-  quoteData = {
-    hotel_id: hotelId,
-    hotelName: hotel.name||hotel.name_display||hotel.hotel_id||hotelId,
-    hotelImage: hotel.image_url||"",
-    hotelDrive: hotel.drive_url||"",
-    hotelArea: hotel.area||"",
-    roomType, roomName: lastPrice.roomName||roomType,
-    checkin, checkout, nights, adults, children,
-    netTotal, netPerNight,
-    priceData: lastPrice.priceResult||null
-  };
-  navTo("s-quote");
+// ── BOOKING TAB: hotel search (alias) ─────────────
+function onBkHotelSearch(q) {
+  const drop = document.getElementById("b-hotel-drop");
+  if (!q.trim()) { drop.style.display="none"; return; }
+  const ql = q.toLowerCase();
+  const matches = hotels.filter(h => {
+    const name = (h.name||h.name_display||h.hotel_name||"").toLowerCase();
+    const id   = (h.hotel_id||"").toLowerCase();
+    const area = (h.area||"").toLowerCase();
+    return name.includes(ql) || id.includes(ql) || area.includes(ql);
+  });
+  if (!matches.length) { drop.style.display="none"; return; }
+  drop.innerHTML = matches.map(h => `
+    <div class="search-item" onclick="selectBkHotel('${h.hotel_id}','${(h.name||h.name_display||h.hotel_id).replace(/'/g,"\\'")}')">
+      <div>${h.name||h.name_display||h.hotel_id}</div>
+      <div class="search-item-sub">${h.area||""} · ${h.hotel_id}</div>
+    </div>`).join("");
+  drop.style.display = "block";
 }
 
+async function selectBkHotel(hotelId, hotelName) {
+  document.getElementById("b-hotel").value = hotelId;
+  document.getElementById("b-hotel-search").value = hotelName;
+  document.getElementById("b-hotel-drop").style.display = "none";
+  await updateRoomList(hotelId, "b-room");
+}
+
+// Đóng dropdown khi click ngoài
+document.addEventListener("click", e => {
+  if (!e.target.closest("#b-hotel-search") && !e.target.closest("#b-hotel-drop")) {
+    const d = document.getElementById("b-hotel-drop");
+    if (d) d.style.display="none";
+  }
+});
+
+// ── INLINE MARKUP (trong màn tra giá) ─────────────
+function adjInlineMarkup(delta) {
+  _inlineMarkup = Math.max(0, _inlineMarkup + delta);
+  document.getElementById("im-markup").value = _inlineMarkup.toLocaleString("vi-VN");
+  updateInlineMarkup();
+}
+function onInlineMarkup(val) {
+  _inlineMarkup = parseInt(val.replace(/\D/g,""))||0;
+  updateInlineMarkup();
+}
+function updateInlineMarkup() {
+  if (!_quoteData) return;
+  const net   = _quoteData.netPerNight;
+  const nts   = _quoteData.nights;
+  const total = (net + _inlineMarkup) * nts;
+  document.getElementById("im-total").textContent = fmt(total) + "đ";
+  document.getElementById("im-sub").textContent   = nts + " đêm · " + fmt(net + _inlineMarkup) + "đ/đêm";
+}
+
+// ── QUOTE SCREEN MARKUP ───────────────────────────
+function adjMarkup(delta) {
+  const cur = parseInt(document.getElementById("q-markup").value.replace(/\D/g,""))||0;
+  const next = Math.max(0, cur + delta);
+  document.getElementById("q-markup").value = next.toLocaleString("vi-VN");
+  calcQuoteTotals();
+}
+function onMarkupInput(val) { calcQuoteTotals(); }
+function calcQuoteTotals() {
+  if (!_quoteData) return;
+  const markup = parseInt(document.getElementById("q-markup").value.replace(/\D/g,""))||0;
+  const net    = _quoteData.netPerNight;
+  const nts    = _quoteData.nights;
+  const total  = (net + markup) * nts;
+  document.getElementById("q-customer-total").textContent = fmt(total) + "đ";
+  document.getElementById("q-per-night-sub").textContent  = fmt(net + markup) + "đ/đêm";
+  document.getElementById("q-nights-sub").textContent     = "× " + nts + " đêm";
+}
+
+// ── NAVIGATE TO QUOTE SCREEN ──────────────────────
+function goToQuote() {
+  navTo("s-quote");
+  refreshQuoteScreen();
+}
 function refreshQuoteScreen() {
-  if (!quoteData) {
-    document.getElementById("quote-no-sel").style.display = "block";
-    document.getElementById("quote-has-sel").style.display = "none";
+  if (!_quoteData) {
+    document.getElementById("quote-empty").style.display   = "block";
+    document.getElementById("quote-content").style.display = "none";
     return;
   }
-  document.getElementById("quote-no-sel").style.display = "none";
-  document.getElementById("quote-has-sel").style.display = "block";
-
-  document.getElementById("q-hotel-name").textContent = quoteData.hotelName;
-  document.getElementById("q-room-name").textContent  = quoteData.roomName||quoteData.roomType;
-  document.getElementById("q-ci").textContent   = fmtDateVi(quoteData.checkin);
-  document.getElementById("q-co").textContent   = fmtDateVi(quoteData.checkout);
-  document.getElementById("q-nights").textContent = quoteData.nights + " đêm";
-  document.getElementById("q-guests").textContent = quoteData.adults + " người lớn" +
-    (quoteData.children>0 ? ", " + quoteData.children + " trẻ em" : "");
-  document.getElementById("q-net-price").textContent = fmt(quoteData.netTotal) + "đ (tổng " + quoteData.nights + " đêm)";
-
-  // Pre-fill CTV info from logged-in user
-  if (user && !document.getElementById("q-ctv-name").value) {
-    document.getElementById("q-ctv-name").value  = user.name||"";
-    document.getElementById("q-ctv-phone").value = user.phone||"";
-  }
-  calcQuotePrice();
+  document.getElementById("quote-empty").style.display   = "none";
+  document.getElementById("quote-content").style.display = "block";
+  const d = _quoteData;
+  document.getElementById("q-hotel").textContent   = d.hotelName;
+  document.getElementById("q-detail").textContent  =
+    (d.roomName||d.roomType) + " · " + d.checkin + " → " + d.checkout + " · " + d.nights + " đêm · " + d.adults + " NL";
+  document.getElementById("q-net-night").textContent = fmt(d.netPerNight) + "đ/đêm (net)";
+  // Pre-fill CTV from login
+  if (user && !document.getElementById("q-ctv-name").value)
+    document.getElementById("q-ctv-name").value = user.name||"";
+  calcQuoteTotals();
 }
 
-function calcQuotePrice() {
-  if (!quoteData) return;
-  const markup     = parseInt(document.getElementById("q-markup").value||"0")||0;
-  const totalMarkup= markup * quoteData.nights;
-  const customerTotal = quoteData.netTotal + totalMarkup;
-  document.getElementById("q-total-markup").textContent = fmt(totalMarkup) + "đ";
-  document.getElementById("q-customer-price").textContent = fmt(customerTotal) + "đ";
-}
-
-function fmtDateVi(s) {
-  if(!s) return "";
-  const d = new Date(s+"T12:00:00");
-  return d.toLocaleDateString("vi-VN",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"});
-}
-
+// ── GENERATE PRINTABLE QUOTE ──────────────────────
 function generateQuote() {
-  if (!quoteData) { alert("Không có dữ liệu báo giá"); return; }
-  const ctvName  = document.getElementById("q-ctv-name").value.trim()||"CTV VNLUX";
-  const ctvPhone = document.getElementById("q-ctv-phone").value.trim()||"";
-  const markup   = parseInt(document.getElementById("q-markup").value||"0")||0;
-  const note     = document.getElementById("q-note").value.trim();
-  const totalMarkup   = markup * quoteData.nights;
-  const customerTotal = quoteData.netTotal + totalMarkup;
-  const today    = new Date().toLocaleDateString("vi-VN");
+  if (!_quoteData) return;
+  const d         = _quoteData;
+  const ctvName   = document.getElementById("q-ctv-name").value.trim() || "CTV VNLUX";
+  const ctvPhone  = document.getElementById("q-ctv-phone").value.trim();
+  const note      = document.getElementById("q-note").value.trim();
+  const markup    = parseInt(document.getElementById("q-markup").value.replace(/\D/g,""))||0;
+  const custNight = d.netPerNight + markup;
+  const custTotal = custNight * d.nights;
+  const today     = new Date().toLocaleDateString("vi-VN");
+  const cancelPol = d.priceData?.cancel_policy;
+  const warnings  = (d.priceData?.warnings||[]).filter(Boolean).join("<br>");
+  const fmtD = s => {
+    if (!s) return "";
+    const dt = new Date(s+"T12:00:00");
+    return dt.toLocaleDateString("vi-VN",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"});
+  };
 
-  // Chính sách hủy từ priceData
-  const cancelPol = quoteData.priceData?.cancel_policy;
-  const cancelDesc = cancelPol
-    ? `<b>${cancelPol.name_vi}</b>: ${cancelPol.description}`
-    : "Linh hoạt — vui lòng xác nhận với khách sạn";
-  const warnings = (quoteData.priceData?.warnings||[]).filter(w=>w).join("<br>");
-
-  const quoteHtml = `<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Báo giá — ${quoteData.hotelName}</title>
+  const html = `<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8">
+<title>Báo giá · ${d.hotelName}</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;color:#1a1a2e}
-  .wrap{max-width:700px;margin:20px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.12)}
-  .hdr{background:linear-gradient(135deg,#1D3461,#1a2a52);color:#fff;padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-start}
-  .brand{font-size:22px;font-weight:700;letter-spacing:.02em}
-  .brand-sub{font-size:11px;color:rgba(255,255,255,.6);margin-top:3px;letter-spacing:.08em;text-transform:uppercase}
-  .ctv-info{text-align:right;font-size:13px}
-  .ctv-name{font-weight:600;font-size:15px}
-  .ctv-phone{color:rgba(255,255,255,.7);margin-top:2px}
-  .quote-no{font-size:11px;color:rgba(255,255,255,.5);margin-top:6px}
-  .hotel-img{width:100%;height:200px;object-fit:cover;display:block}
-  .hotel-img-placeholder{width:100%;height:120px;background:linear-gradient(135deg,#1D3461,#1a2a52);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:40px}
-  .body{padding:24px 28px}
-  .section{margin-bottom:22px}
-  .section-title{font-size:11px;font-weight:700;color:#7a8099;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #e4e7ef}
-  .hotel-name{font-size:20px;font-weight:700;color:#1D3461;margin-bottom:4px}
-  .hotel-area{font-size:13px;color:#7a8099}
-  table{width:100%;border-collapse:collapse}
-  td{padding:8px 0;font-size:14px;border-bottom:.5px solid #f0f0f0}
-  td:first-child{color:#7a8099;width:45%}
-  td:last-child{font-weight:500;text-align:right}
-  .price-table td{padding:10px 0}
-  .price-net{color:#7a8099;font-style:italic}
-  .price-total-row td{font-size:17px;font-weight:700;color:#1D3461;border-bottom:none;padding-top:14px;border-top:2px solid #e4e7ef}
-  .customer-price-row td{font-size:20px;font-weight:700;color:#C8963E;border:none}
-  .tag{display:inline-block;background:#ddf4ed;color:#0b6e4f;font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600}
-  .note-box{background:#fff8e7;border-left:3px solid #C8963E;border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;margin-bottom:10px;color:#854f0b;line-height:1.6}
-  .amenities{font-size:13px;color:#333;line-height:2}
-  .amenities li{list-style:none;padding-left:0}
-  .amenities li::before{content:"✓ ";color:#1D9E75;font-weight:700}
-  .cancel-box{background:#f8f5ff;border-left:3px solid #7c4dff;border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:#333;line-height:1.6}
-  .warning-box{background:#fff3cd;border-left:3px solid #e8a84c;border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:#856404;line-height:1.6}
-  .footer{background:#f8f9fa;padding:18px 28px;font-size:11px;color:#7a8099;border-top:1px solid #e4e7ef;line-height:1.8}
-  .drive-link{color:#1D3461;font-weight:600}
-  .print-btn{display:block;width:100%;padding:14px;background:#1D3461;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;font-family:inherit}
-  .print-btn:hover{background:#1a2a52}
-  @media print{
-    body{background:#fff}
-    .wrap{box-shadow:none;margin:0;border-radius:0}
-    .no-print{display:none!important}
-    .hotel-img{height:160px}
-  }
-</style>
-</head>
-<body>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f8;color:#1a1a2e}
+.wrap{max-width:680px;margin:20px auto;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.13)}
+.hdr{background:linear-gradient(135deg,#1D3461,#1a2a52);color:#fff;padding:22px 26px;display:flex;justify-content:space-between;align-items:flex-start}
+.brand{font-size:20px;font-weight:700;letter-spacing:.02em}
+.brand-sub{font-size:10px;color:rgba(255,255,255,.55);margin-top:3px;letter-spacing:.1em;text-transform:uppercase}
+.ctv-right{text-align:right;font-size:12px}
+.ctv-name-disp{font-weight:600;font-size:14px}
+.ctv-phone-disp{color:rgba(255,255,255,.65);margin-top:3px}
+.quote-date{color:rgba(255,255,255,.45);font-size:11px;margin-top:5px}
+.hotel-img{width:100%;height:190px;object-fit:cover;display:block}
+.hotel-ph{width:100%;height:90px;background:linear-gradient(135deg,#1D3461,#2a3f70);display:flex;align-items:center;justify-content:center;font-size:36px;color:rgba(255,255,255,.2)}
+.body{padding:22px 26px}
+.sec{margin-bottom:20px}
+.sec-title{font-size:10px;font-weight:700;color:#7a8099;text-transform:uppercase;letter-spacing:.1em;padding-bottom:6px;border-bottom:1px solid #e4e7ef;margin-bottom:11px}
+.h-name{font-size:18px;font-weight:700;color:#1D3461;margin-bottom:3px}
+.h-loc{font-size:12px;color:#7a8099}
+table{width:100%;border-collapse:collapse}
+td{padding:7px 0;font-size:13px;border-bottom:.5px solid #f0f0f0;vertical-align:top}
+td:first-child{color:#7a8099;width:40%;padding-right:8px}
+td.val{font-weight:500;text-align:right}
+.p-row td{padding:9px 0;font-size:14px}
+.p-total td{font-size:16px;font-weight:700;color:#1D3461;border-top:2px solid #e4e7ef;border-bottom:none;padding-top:12px}
+.p-cust td{font-size:19px;font-weight:700;color:#C8963E;border:none;padding-top:4px}
+.tag{display:inline-block;background:#ddf4ed;color:#0b6e4f;font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600}
+.note-box{background:#fff8e7;border-left:3px solid #C8963E;padding:10px 13px;border-radius:0 8px 8px 0;font-size:12px;color:#7a4800;line-height:1.7;margin-bottom:10px}
+.cancel-box{background:#f5f0ff;border-left:3px solid #7c4dff;padding:10px 13px;border-radius:0 8px 8px 0;font-size:12px;color:#333;line-height:1.6}
+.warn-box{background:#fff3cd;border-left:3px solid #e8a84c;padding:8px 13px;border-radius:0 8px 8px 0;font-size:11px;color:#7a4800;line-height:1.6;margin-bottom:8px}
+.amen li{list-style:none;font-size:13px;padding:4px 0;color:#333}
+.amen li::before{content:"✓ ";color:#1D9E75;font-weight:700}
+.ftr{background:#f8f9fa;padding:14px 26px;font-size:11px;color:#7a8099;border-top:1px solid #e4e7ef;line-height:1.8}
+.print-btn{display:block;width:100%;padding:13px;background:#1D3461;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;margin-top:14px;font-family:inherit}
+@media print{body{background:#fff}.wrap{box-shadow:none;margin:0;border-radius:0}.hotel-img{height:140px}.no-print{display:none!important}}
+</style></head><body>
 <div class="wrap">
-  <div class="hdr">
-    <div>
-      <div class="brand">✈ VNLUX TRAVEL</div>
-      <div class="brand-sub">Báo giá dịch vụ lưu trú</div>
-    </div>
-    <div class="ctv-info">
-      <div class="ctv-name">${ctvName}</div>
-      ${ctvPhone ? `<div class="ctv-phone">${ctvPhone}</div>` : ""}
-      <div class="quote-no">Ngày: ${today}</div>
-    </div>
-  </div>
-
-  ${quoteData.hotelImage
-    ? `<img class="hotel-img" src="${quoteData.hotelImage}" onerror="this.style.display='none'">`
-    : `<div class="hotel-img-placeholder">🏨</div>`}
-
-  <div class="body">
-
-    <!-- Thông tin khách sạn -->
-    <div class="section">
-      <div class="section-title">Khách sạn</div>
-      <div class="hotel-name">${quoteData.hotelName}</div>
-      <div class="hotel-area">📍 ${quoteData.hotelArea||""}</div>
-      ${quoteData.hotelDrive ? `<div style="margin-top:6px"><a class="drive-link" href="${quoteData.hotelDrive}" target="_blank">📷 Xem ảnh đầy đủ →</a></div>` : ""}
-    </div>
-
-    <!-- Chi tiết lưu trú -->
-    <div class="section">
-      <div class="section-title">Thông tin lưu trú</div>
-      <table>
-        <tr><td>Hạng phòng</td><td>${quoteData.roomName||quoteData.roomType}</td></tr>
-        <tr><td>Check-in</td><td>${fmtDateVi(quoteData.checkin)}</td></tr>
-        <tr><td>Check-out</td><td>${fmtDateVi(quoteData.checkout)}</td></tr>
-        <tr><td>Số đêm</td><td>${quoteData.nights} đêm</td></tr>
-        <tr><td>Người lớn</td><td>${quoteData.adults} người</td></tr>
-        ${quoteData.children>0 ? `<tr><td>Trẻ em (5-11t)</td><td>${quoteData.children} bé</td></tr>` : ""}
-        <tr><td>Số phòng</td><td>1 phòng</td></tr>
-        <tr><td>Trạng thái</td><td><span class="tag">Báo giá · Chưa giữ phòng</span></td></tr>
-      </table>
-    </div>
-
-    <!-- Bảng giá -->
-    <div class="section">
-      <div class="section-title">Bảng giá</div>
-      <table class="price-table">
-        <tr><td class="price-net">Giá phòng (net/đêm)</td><td class="price-net">${fmt(quoteData.netPerNight)}đ</td></tr>
-        ${markup>0 ? `<tr><td class="price-net">Lãi dịch vụ/đêm</td><td class="price-net">+${fmt(markup)}đ</td></tr>` : ""}
-        <tr><td>Giá báo/đêm</td><td><b>${fmt(quoteData.netPerNight+markup)}đ</b></td></tr>
-        ${totalMarkup>0 ? `<tr><td class="price-net">Tổng lãi (${quoteData.nights} đêm)</td><td class="price-net">+${fmt(totalMarkup)}đ</td></tr>` : ""}
-        <tr class="price-total-row"><td>Tổng tiền (${quoteData.nights} đêm)</td><td>${fmt(customerTotal)}đ</td></tr>
-        ${markup>0 ? `<tr class="customer-price-row"><td>Giá báo cho khách</td><td>${fmt(customerTotal)}đ ✓</td></tr>` : ""}
-      </table>
-    </div>
-
-    <!-- Cảnh báo nếu có -->
-    ${warnings ? `<div class="section"><div class="warning-box">${warnings}</div></div>` : ""}
-
-    <!-- Dịch vụ bao gồm -->
-    <div class="section">
-      <div class="section-title">Dịch vụ tại khách sạn</div>
-      <ul class="amenities">
-        <li>Hồ bơi & khu vực giải trí</li>
-        <li>Nhà hàng & Bar</li>
-        <li>Trung tâm Spa & Fitness</li>
-        <li>Bãi biển riêng (nếu có)</li>
-        <li>WiFi tốc độ cao toàn khu vực</li>
-        <li>Parking miễn phí</li>
-        <li>24/7 Concierge & Lễ tân</li>
-        ${note ? `<li>${note}</li>` : ""}
-      </ul>
-    </div>
-
-    <!-- Chính sách hủy -->
-    <div class="section">
-      <div class="section-title">Chính sách hoàn hủy</div>
-      <div class="cancel-box">${cancelDesc}</div>
-    </div>
-
-    <!-- Lưu ý quan trọng -->
-    <div class="section">
-      <div class="section-title">Lưu ý quan trọng</div>
-      <div class="note-box">
-        💡 Giá đã bao gồm thuế và phí dịch vụ theo quy định<br>
-        ⚠️ Đây là báo giá tham khảo — chưa giữ phòng<br>
-        📞 Vui lòng liên hệ CTV để xác nhận tình trạng phòng và đặt chỗ<br>
-        🕐 Giá có thể thay đổi tùy thời điểm xác nhận chính thức<br>
-        ${quoteData.hotelDrive ? `🖼️ Xem ảnh resort đầy đủ tại: <a href="${quoteData.hotelDrive}" target="_blank">${quoteData.hotelDrive}</a>` : ""}
-      </div>
-    </div>
-
-    <button class="print-btn no-print" onclick="window.print()">🖨️ In báo giá</button>
-  </div>
-
-  <div class="footer">
-    <b>VNLUX TRAVEL</b> · Đối tác du lịch nghỉ dưỡng cao cấp miền Trung<br>
-    CTV phụ trách: <b>${ctvName}</b>${ctvPhone ? ` · ${ctvPhone}` : ""}<br>
-    Báo giá được tạo tự động từ VNLUX CTV Portal · ${today}
+<div class="hdr">
+  <div><div class="brand">✈ VNLUX TRAVEL</div><div class="brand-sub">Báo giá dịch vụ lưu trú</div></div>
+  <div class="ctv-right">
+    <div class="ctv-name-disp">${ctvName}</div>
+    ${ctvPhone ? `<div class="ctv-phone-disp">${ctvPhone}</div>` : ""}
+    <div class="quote-date">Ngày: ${today}</div>
   </div>
 </div>
-<script>
-  window.onload = function() { setTimeout(()=>window.print(), 500); }
-</script>
-</body>
-</html>`;
+${d.hotelImage ? `<img class="hotel-img" src="${d.hotelImage}" onerror="this.style.display='none;this.nextSibling.style.display=flex'">` : ""}
+<div class="hotel-ph" style="${d.hotelImage ? 'display:none' : ''}">🏨</div>
+<div class="body">
 
-  const w = window.open("","_blank","width=800,height=900,scrollbars=yes");
-  w.document.write(quoteHtml);
-  w.document.close();
+<div class="sec">
+  <div class="sec-title">Khách sạn</div>
+  <div class="h-name">${d.hotelName}</div>
+  <div class="h-loc">${d.hotelArea ? "📍 " + d.hotelArea : ""}</div>
+  ${d.hotelDrive ? `<div style="margin-top:6px;font-size:12px"><a href="${d.hotelDrive}" target="_blank" style="color:#1D3461;font-weight:600">📷 Xem ảnh resort đầy đủ →</a></div>` : ""}
+</div>
+
+<div class="sec">
+  <div class="sec-title">Thông tin lưu trú</div>
+  <table>
+    <tr><td>Hạng phòng</td><td class="val">${d.roomName||d.roomType}</td></tr>
+    <tr><td>Check-in</td><td class="val">${fmtD(d.checkin)}</td></tr>
+    <tr><td>Check-out</td><td class="val">${fmtD(d.checkout)}</td></tr>
+    <tr><td>Số đêm</td><td class="val">${d.nights} đêm</td></tr>
+    <tr><td>Người lớn</td><td class="val">${d.adults} người</td></tr>
+    ${d.children > 0 ? `<tr><td>Trẻ em (5-11t)</td><td class="val">${d.children} bé</td></tr>` : ""}
+    <tr><td>Trạng thái</td><td class="val"><span class="tag">Báo giá · Chưa giữ phòng</span></td></tr>
+  </table>
+</div>
+
+<div class="sec">
+  <div class="sec-title">Bảng giá</div>
+  <table>
+    <tr class="p-row"><td style="color:#7a8099">Giá net/đêm (CTV)</td><td class="val" style="color:#7a8099">${fmt(d.netPerNight)}đ</td></tr>
+    ${markup > 0 ? `<tr class="p-row"><td style="color:#7a8099">Phí dịch vụ/đêm</td><td class="val" style="color:#7a8099">+${fmt(markup)}đ</td></tr>` : ""}
+    <tr class="p-row"><td>Giá báo/đêm</td><td class="val"><b>${fmt(custNight)}đ</b></td></tr>
+    <tr class="p-total"><td>TỔNG TIỀN (${d.nights} đêm)</td><td class="val">${fmt(custTotal)}đ</td></tr>
+    ${markup > 0 ? `<tr class="p-cust"><td>Giá khách hàng</td><td class="val">${fmt(custTotal)}đ</td></tr>` : ""}
+  </table>
+  ${warnings ? `<div class="warn-box" style="margin-top:10px">${warnings}</div>` : ""}
+</div>
+
+<div class="sec">
+  <div class="sec-title">Dịch vụ tại khách sạn</div>
+  <ul class="amen">
+    <li>Hồ bơi & khu giải trí</li>
+    <li>Nhà hàng & Bar</li>
+    <li>Trung tâm Spa & Fitness</li>
+    <li>Bãi biển riêng (nếu có)</li>
+    <li>WiFi tốc độ cao toàn khu</li>
+    <li>Parking miễn phí</li>
+    <li>24/7 Concierge & Lễ tân</li>
+    ${note ? `<li>${note}</li>` : ""}
+  </ul>
+</div>
+
+<div class="sec">
+  <div class="sec-title">Chính sách hoàn hủy</div>
+  <div class="cancel-box">${cancelPol ? `<b>${cancelPol.name_vi}</b>: ${cancelPol.description}` : "Linh hoạt — xác nhận với khách sạn khi booking"}</div>
+</div>
+
+<div class="sec">
+  <div class="note-box">
+    💡 Giá đã bao gồm thuế và phí dịch vụ theo quy định<br>
+    ⚠️ Đây là báo giá tham khảo — <b>phòng chưa được giữ</b><br>
+    📞 Liên hệ CTV để xác nhận tình trạng & đặt phòng<br>
+    🕐 Giá có thể thay đổi theo thời điểm xác nhận
+  </div>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ In báo giá</button>
+</div>
+<div class="ftr">
+  <b>VNLUX TRAVEL</b> · Đối tác nghỉ dưỡng cao cấp miền Trung<br>
+  CTV: <b>${ctvName}</b>${ctvPhone ? " · " + ctvPhone : ""} · Ngày tạo: ${today}
+</div>
+</div>
+<script>window.onload=()=>setTimeout(()=>window.print(),600)</script>
+</body></html>`;
+
+  const w = window.open("","_blank","width=760,height=900,scrollbars=yes");
+  if (w) { w.document.write(html); w.document.close(); }
+  else alert("Bật pop-up để xem báo giá. Kiểm tra thanh địa chỉ trình duyệt.");
 }
 
-// Cập nhật loadHotelDropdowns: điền vào b-hotel dropdown (booking form)
-function loadHotelDropdowns() {
-  ["b-hotel"].forEach(id => {
-    const sel = document.getElementById(id);
-    if (!sel) return;
-    const cur = sel.value;
-    sel.innerHTML = '<option value="">-- Chọn khách sạn --</option>' +
-      hotels.map(h=>`<option value="${h.hotel_id}">${h.name||h.name_display||h.hotel_id}</option>`).join("");
-    if (cur) sel.value = cur;
-  });
+// ── INVENTORY (QUỸ PHÒNG) ─────────────────────────
+const HOLIDAYS = [
+  {id:"tet26",     name:"Tết 2026",    from:"2026-01-27", to:"2026-02-05", emoji:"🎆"},
+  {id:"304_26",    name:"30/4–2/5",    from:"2026-04-30", to:"2026-05-02", emoji:"🇻🇳"},
+  {id:"29_26",     name:"2/9 Quốc khánh",from:"2026-09-01",to:"2026-09-04",emoji:"🏳"},
+  {id:"giang25",   name:"Giáng sinh",  from:"2026-12-24", to:"2026-12-27", emoji:"🎄"},
+  {id:"nam_moi26", name:"Năm mới 2027",from:"2026-12-30", to:"2027-01-03", emoji:"🎉"},
+];
+let _invActive = null;
+
+function renderInvPills() {
+  document.getElementById("inv-pills").innerHTML = HOLIDAYS.map(h =>
+    `<button class="hol-btn" id="pill-${h.id}" onclick="loadInventory('${h.id}')">${h.emoji} ${h.name}</button>`
+  ).join("");
 }
 
-// Lưu thêm thông tin vào lastPrice khi check giá (để quote dùng)
+async function loadInventory(holId) {
+  const hol = HOLIDAYS.find(h=>h.id===holId);
+  if (!hol) return;
+  _invActive = holId;
+  document.querySelectorAll(".hol-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById("pill-"+holId).classList.add("active");
+  const list = document.getElementById("inv-list");
+  list.innerHTML = '<div class="loading">⏳ Đang tải giá...</div>';
+
+  try {
+    // Lấy giá từng hotel trong kỳ lễ
+    const results = await Promise.all(hotels.map(async h => {
+      try {
+        const r = await api("getPrice",{hotel_id:h.hotel_id, checkin:hol.from, checkout:hol.to});
+        return {hotel: h, rooms: (r&&r.ok)?(r.rooms||[]):[]};
+      } catch(e) { return {hotel:h, rooms:[]}; }
+    }));
+
+    list.innerHTML = results.filter(r=>r.rooms.length>0).map(r => `
+      <div class="inv-card">
+        <div class="inv-hotel">🏨 ${r.hotel.name||r.hotel.hotel_id} <span style="font-size:11px;color:var(--muted)">${hol.from} → ${hol.to}</span></div>
+        ${r.rooms.slice(0,6).map(rm => `
+          <div class="inv-row">
+            <span class="inv-room">${rm.room_name||rm.room_type}</span>
+            <span class="inv-price">${fmt(rm.gia_ban)}đ/đêm
+              ${rm.weekend_surcharge>0?`<span class="inv-badge">+${fmt(rm.weekend_surcharge)} CK</span>`:""}
+              ${rm.min_nights>0?`<span class="inv-badge">Min ${rm.min_nights}đêm</span>`:""}
+            </span>
+          </div>`).join("")}
+        ${r.rooms.length>6?`<div style="font-size:11px;color:var(--muted);padding:6px 0">+${r.rooms.length-6} hạng phòng khác...</div>`:""}
+        <div style="margin-top:8px;display:flex;gap:6px">
+          <button style="flex:1;font-size:11px;padding:6px;background:#eef4fb;border:1px solid var(--border);border-radius:8px;cursor:pointer;color:var(--navy);font-weight:600"
+            onclick="quickPriceFromInv('${r.hotel.hotel_id}','${hol.from}','${hol.to}')">💰 Xem giá đầy đủ</button>
+        </div>
+      </div>`).join("") ||
+      '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Chưa có giá cho kỳ này</div></div>';
+  } catch(e) {
+    list.innerHTML = '<div class="loading">❌ Lỗi tải dữ liệu</div>';
+  }
+}
+
+function quickPriceFromInv(hotelId, checkin, checkout) {
+  // Pre-fill màn tra giá với hotel + ngày lễ
+  const hotel = hotels.find(h=>h.hotel_id===hotelId);
+  if (!hotel) return;
+  document.getElementById("p-hotel").value = hotelId;
+  document.getElementById("p-hotel-search").value = hotel.name||hotel.hotel_id;
+  document.getElementById("p-ci").value = checkin;
+  document.getElementById("p-co").value = checkout;
+  navTo("s-price");
+  setTimeout(()=>{ loadRoomCards(); }, 200);
+}
+
+// ── OVERRIDE doCheckPrice: lưu _quoteData + hiện inline markup ───────
+const _origDoCheckPrice = doCheckPrice;
+async function doCheckPrice() {
+  await _origDoCheckPrice();
+  // Lấy data từ price-result đã render
+  setTimeout(()=>{
+    const prRes = document.getElementById("price-result");
+    const totalEl = prRes?.querySelector(".price-total-val");
+    if (!totalEl) return;
+    const netTotal    = parseInt(totalEl.textContent.replace(/\D/g,""))||0;
+    const hotelId     = document.getElementById("p-hotel").value;
+    const roomType    = document.getElementById("p-room").value;
+    const checkin     = document.getElementById("p-ci").value;
+    const checkout    = document.getElementById("p-co").value;
+    const adults      = +document.getElementById("p-adults").value;
+    const children    = +document.getElementById("p-kids").value;
+    const nights      = Math.round((new Date(checkout)-new Date(checkin))/86400000)||1;
+    const hotelObj    = hotels.find(h=>h.hotel_id===hotelId)||{};
+
+    // Lấy room_name từ price-result text
+    const roomNameEl  = prRes?.querySelector(".price-room");
+    const roomName    = roomNameEl ? roomNameEl.textContent.split("·")[0].trim() : roomType;
+
+    _quoteData = {
+      hotelName: hotelObj.name||hotelObj.name_display||hotelId,
+      hotelImage: hotelObj.image_url||"",
+      hotelDrive: hotelObj.drive_url||"",
+      hotelArea: hotelObj.area||"",
+      hotel_id: hotelId, roomType, roomName,
+      checkin, checkout, nights, adults, children,
+      netPerNight: Math.round(netTotal/nights),
+      priceData: null // will be populated if getEnhancedPrice was called
+    };
+    _inlineMarkup = 0;
+    document.getElementById("im-net").textContent = fmt(_quoteData.netPerNight) + "đ/đêm";
+    document.getElementById("im-markup").value = "0";
+    document.getElementById("im-total").textContent = fmt(netTotal) + "đ";
+    document.getElementById("im-sub").textContent = nights + " đêm · " + fmt(_quoteData.netPerNight) + "đ/đêm";
+    document.getElementById("inline-markup").style.display = "block";
+  }, 800);
+}
+
+// ── OVERRIDE goBookFromPrice: pre-fill đầy đủ ────────────────────────
+function goBookFromPrice() {
+  if (lastPrice) {
+    const hotelObj = hotels.find(h=>h.hotel_id===lastPrice.hotel_id)||{};
+    // Set hidden hotel id
+    document.getElementById("b-hotel").value = lastPrice.hotel_id;
+    // Set search input visible text
+    document.getElementById("b-hotel-search").value = hotelObj.name||hotelObj.name_display||lastPrice.hotel_id;
+    document.getElementById("b-ci").value    = lastPrice.checkin;
+    document.getElementById("b-co").value    = lastPrice.checkout;
+    if (lastPrice.adults)   document.getElementById("b-adults").value = lastPrice.adults;
+    if (lastPrice.children !== undefined) document.getElementById("b-kids").value = lastPrice.children;
+    // Load rooms then select
+    updateRoomList(lastPrice.hotel_id,"b-room").then(()=>{
+      document.getElementById("b-room").value = lastPrice.room_type;
+    });
+  }
+  navTo("s-booking");
+}
+
+// ── OVERRIDE navTo: xử lý s-quote + s-inv ────────────────────────────
+const _origNavTo = navTo;
+function navTo(id, el) {
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  if (el) {
+    const navs = el.closest("nav");
+    if (navs) navs.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
+    el.classList.add("active");
+  }
+  if (id==="s-home")    loadDashboard();
+  if (id==="s-list")    loadBookings();
+  if (id==="s-price")   initDates("p-ci","p-co");
+  if (id==="s-booking") initDates("b-ci","b-co");
+  if (id==="s-quote")   refreshQuoteScreen();
+  if (id==="s-inv")     { renderInvPills(); }
+}
 
 // ══════════════════════════════════════════════════
 // AUTO LOGIN
