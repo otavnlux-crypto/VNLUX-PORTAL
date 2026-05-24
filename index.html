@@ -307,7 +307,7 @@ async function loadHotelList() {
       const sel = document.getElementById(id);
       const cur = sel.value;
       sel.innerHTML = '<option value="">-- Chọn khách sạn --</option>' +
-        hotels.map(h=>`<option value="${h.hotel_id}">${h.name_display||h.hotel_name}</option>`).join("");
+        hotels.map(h=>`<option value="${h.hotel_id}">${h.name||h.name_display||h.hotel_name||h.hotel_id}</option>`).join("");
       if (cur) sel.value = cur;
     });
   } catch(e) { console.log("Hotel load error:", e); }
